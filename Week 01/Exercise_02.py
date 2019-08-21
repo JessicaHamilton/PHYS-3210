@@ -47,7 +47,26 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # read in flattened data from a file and store in variable `data`.
-data = np.loadtxt("data/DS_Tuc_A_W0400_N5000_B0000_sDart.dat.gz")
+#Grab the col within the array of arrays
+data = np.loadtxt(r"\Users\Jahami2802\Documents\Github\PHYS-3210\Week 01\data\DS_Tuc_A_W0400_N5000_B0000_sDart.dat.gz")
+mass1 = data[0][0]
+age1 = data[1]
+dist1 = data[2]
+bright1 = data[3]
+s_temp1 = data[4]
+radius1 = data[5]
+
+mass2 = np.reshape(mass1, (400,5000))
+age2 = np.reshape(age1, (400,5000))
+dist2 = np.reshape(dist1, (400, 5000))
+bright2 = np.reshape(bright1, (400, 5000))
+s_temp2 = np.reshape(s_temp1, (400, 5000))
+radius2 = np.reshape(radius1, (400, 5000))
+
+chains = [mass2, age2, dist2, bright2, s_temp2, radius2]
+
+print(chains.shape)
+
 
 # YOUR TASK: unflatten the array to recover the original set of 400 
 #            walkers each with 5,000 steps (entries). store the results

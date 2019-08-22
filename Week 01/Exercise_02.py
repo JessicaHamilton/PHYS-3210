@@ -47,43 +47,48 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # read in flattened data from a file and store in variable `data`.
-data = np.loadtxt(r"\Users\Jahami2802\Documents\Github\PHYS-3210\Week 01\data/DS_Tuc_A_W0400_N5000_B0000_sDart.dat.gz")
-mass1 = data[0]
-age1 = data[1]
-dist1 = data[2]
-bright1 = data[3]
-s_temp1 = data[4]
-radius1 = data[5]
+data = np.loadtxt(r"\Users\Jahami2802\Documents\Github\PHYS-3210\Week 01\data\DS_Tuc_A_W0400_N5000_B0000_sDart.dat.gz")
+print(data)
 
-mass2 = np.reshape(mass1, (400,5000))
-age2 = np.reshape(age1, (400,5000))
-dist2 = np.reshape(dist1, (400,5000))
-bright2 = np.reshape(bright1, (400,5000))
-s_temp2 = np.reshape(s_temp1, (400,5000))
-radius2 = np.reshape(radius1, (400, 5000))
-
-
-chains = [mass2, age2, dist2, bright2, s_temp2, radius2]
-print(chains.shape)
 # YOUR TASK: unflatten the array to recover the original set of 400 
 #            walkers each with 5,000 steps (entries). store the results
 #            in a new array called `chains`.
+mass1 = data[:, 0]
+age1 = data[:, 1]
+dist1 = data[:, 2]
+bright1 = data[:, 3]
+s_temp1 = data[:, 4]
+radius1 = data[:, 5]
+
+
+mass2 = np.reshape(mass1, (400,5000))
+age2 = np.reshape(age1, (400,5000))
+dist2 = np.reshape(dist1, (400, 5000))
+bright2 = np.reshape(bright1, (400, 5000))
+s_temp2 = np.reshape(s_temp1, (400, 5000))
+radius2 = np.reshape(radius1, (400, 5000))
+
+chains = mass2
 # YOUR TASK: print the shape of the array to the screen
+print(np.shape(chains))
+
 
 
 # plot each individual chain (walker that takes N steps)
 for chain in chains:
-    plt.plot(chain[:,0], '-', lw=1, c='gray')
+    plt.plot(chain, '-', lw=1)
 plt.show()
 
 # YOUR TASK: find the star's predicted mass by finding median of the 
 #            first column of values (index 0) from the flattened data.
-masses = data[0]
-median_value = np.median(masses)
-print("The predicted mass is:", masses)
+median_value = np.median(mass1)
+print("The predicted mass is:", median_value)
 
 
 # CHALLENGE: find the best mass by flattening *only* the final step from
 #            each chain.
+final_step = chains[:,-1]
+best_mass = np.ravel(final_step)
+print("The best mass is:", best_mass)
 
 

@@ -50,9 +50,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-n_values = np.arange(0,20,1)
-summ = ((-1**n)*(x**(2*n+1)))
-denom = []
-for n in range(20):
+x_values = np.arange(0,20,0.1)
+n_values = np.arange(1,50, 1)
+#Create loop to access each x-value to approx.
+for n in range(len(x_values)):
+    #1. Print exact value
+    print(np.sin(n))
+    #Calculate the factorial for n
+    factorial =[]
+    for each_value in range(50):
+        while each_value != each_value:
+            factorial = each_value*each_value
+        
+        
+            
     
 

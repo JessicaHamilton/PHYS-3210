@@ -46,3 +46,13 @@ Created on Tue Aug 20 11:02:00 2019
 @author: gafeiden
 """
 
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+n_values = np.arange(0,20,1)
+summ = ((-1**n)*(x**(2*n+1)))
+denom = []
+for n in range(20):
+    
+

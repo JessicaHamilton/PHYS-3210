@@ -62,6 +62,8 @@ for numm in x_values:
     actual = np.sin(numm)
     print('X value',numm)
     print('Actual sin(x) value:', np.sin(numm))
+    
+    #Run approx for each x value
     summation = 0
     for each_value in range(50):
         #2. Calculate the factorial for n

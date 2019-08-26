@@ -50,32 +50,43 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-x_values = np.arange(0,20,0.1)
-n_values = np.arange(1,50, 1)
+x_values = np.arange(0,10,0.1)
 def my_fact(n):
     return 1 if (n==1 or n==0) else n*my_fact(n-1)
-
+actual_array = []
+approx_array = []
+err_array = []
 #Create loop to access each x-value to approx.
-for numm in range(len(x_values)):
+for numm in x_values:
     #1. Print exact value
     actual = np.sin(numm)
-    print('Actual value:', np.sin(numm))
-    summ = 1e-16
-    for each_value in range(80):
+    print('X value',numm)
+    print('Actual sin(x) value:', np.sin(numm))
+    summation = 0
+    for each_value in range(50):
         #2. Calculate the factorial for n
-        factorial = my_fact(2*each_value+1)
-        print(factorial)
+        n = (2*each_value) +1
+        factorial = my_fact(n)
         #3.calculate interations
-        iter = ((-1**each_value)*(numm**(2*each_value+1)))/factorial
+        iteration = (((-1**each_value)*(numm**n))/factorial)
         #4.Iteration update
-        summ = summ + iter
-        if (iter / summ) <= 1e-8:
+        summation = summation + iteration
+        if (iteration/summation) <= 1e-8:
             break
-    error = (abs(actual) - abs(summ)) / numm
-    #print('Approx value:', iter)
-    #print('Number of iterations:', each_value)
-    #print("Error:", error)
-    
+    error = (abs(actual) - abs(summation))/numm
+    actual_array.append(actual)
+    approx_array.append(summation)
+    err_array.append(error)
+    print('Approx value:', summation)
+    print('Number of iterations:', each_value)
+    print("Error:", error)
+#print(actual_array, approx_array)
+#plt.plot(x_values,err_array)
+plt.plot(x_values, actual_array)
+plt.show()
+plt.plot(x_values, approx_array)
+#plt.plot(actual_array, approx_array)
+plt.show()
             
         
         

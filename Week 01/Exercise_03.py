@@ -52,15 +52,31 @@ import matplotlib.pyplot as plt
 
 x_values = np.arange(0,20,0.1)
 n_values = np.arange(1,50, 1)
+def my_fact(n):
+    return 1 if (n==1 or n==0) else n*my_fact(n-1)
+
 #Create loop to access each x-value to approx.
-for n in range(len(x_values)):
+for numm in range(len(x_values)):
     #1. Print exact value
-    print(np.sin(n))
-    #Calculate the factorial for n
-    factorial =[]
-    for each_value in range(50):
-        while each_value != each_value:
-            factorial = each_value*each_value
+    actual = np.sin(numm)
+    print('Actual value:', np.sin(numm))
+    summ = 1e-16
+    for each_value in range(80):
+        #2. Calculate the factorial for n
+        factorial = my_fact(2*each_value+1)
+        print(factorial)
+        #3.calculate interations
+        iter = ((-1**each_value)*(numm**(2*each_value+1)))/factorial
+        #4.Iteration update
+        summ = summ + iter
+        if (iter / summ) <= 1e-8:
+            break
+    error = (abs(actual) - abs(summ)) / numm
+    #print('Approx value:', iter)
+    #print('Number of iterations:', each_value)
+    #print("Error:", error)
+    
+            
         
         
             

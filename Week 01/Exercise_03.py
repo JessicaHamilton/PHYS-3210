@@ -71,6 +71,7 @@ for numm in x_values:
         factorial = my_fact(a)
         #3.calculate interations
         iteration = ((-1**each_value)*(numm**a))/factorial
+        print(iteration)
         #4.Iteration update
         summation = summation + iteration
         if (iteration/summation) <= 1e-8:

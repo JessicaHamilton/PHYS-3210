@@ -50,7 +50,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-x_values = np.arange(0,10,0.1)
+x_values = np.arange(0,30,0.1)
 def my_fact(n):
     return 1 if (n==1 or n==0) else n*my_fact(n-1)
 actual_array = []
@@ -58,8 +58,18 @@ approx_array = []
 err_array = []
 #Create loop to access each x-value to approx.
 for numm in x_values:
-    #1. Print exact value
+    #1. Calculate actual value
     actual_value = np.sin(numm)
+    #Phase folding
+    if numm <= 0:
+        m = numm // 2*np.pi
+        new_x = numm + 2*np.pi*m
+        actual_value = np.sin(new_x)
+    elif numm >= 0:
+        m = numm//2*np.pi
+        new_x = numm-2*np.pi*m
+        actual_value = np.sin(new_x)
+    print(new_x)    
     print('X value:',numm)
     print('Actual sin(x) value:', actual_value)
     
@@ -70,13 +80,12 @@ for numm in x_values:
         a = (2*each_value)+1
         factorial = my_fact(a)
         #3.calculate interations
-        iteration = (((-1)**each_value)*(numm**a))/factorial
-        print(iteration)
+        iteration = (((-1)**each_value)*(new_x**a))/factorial
         #4.Iteration update
         summation = summation + iteration
-        if (iteration/summation) <= 1e-8:
+        if abs(iteration/summation) <= 1e-8:
             break
-    error = abs(abs(actual_value) - abs(summation))/numm
+    error = np.abs(actual_value - summation)/numm
     actual_array.append(actual_value)
     approx_array.append(summation)
     err_array.append(error)
@@ -91,7 +100,7 @@ plt.show()
 plt.scatter(x_values, approx_array, s=2)
 plt.title('X values versus Approx sinx values')
 plt.show()
-plt.plot(x_values,err_array)
+plt.scatter(x_values,err_array, s=2)
 plt.title('X values versus Relative Error')
 plt.show()
 #plt.plot(actual_array, approx_array)

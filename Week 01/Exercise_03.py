@@ -64,13 +64,13 @@ for numm in x_values:
     print('Actual sin(x) value:', actual_value)
     
     #Run approx for each x value
-    summation = 0
+    summation = 0.0
     for each_value in range(50):
         #2. Calculate the factorial for n
         a = (2*each_value)+1
         factorial = my_fact(a)
         #3.calculate interations
-        iteration = ((-1**each_value)*(numm**a))/factorial
+        iteration = (((-1)**each_value)*(numm**a))/factorial
         print(iteration)
         #4.Iteration update
         summation = summation + iteration

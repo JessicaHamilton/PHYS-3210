@@ -59,24 +59,24 @@ err_array = []
 #Create loop to access each x-value to approx.
 for numm in x_values:
     #1. Print exact value
-    actual = np.sin(numm)
-    print('X value',numm)
-    print('Actual sin(x) value:', actual)
+    actual_value = np.sin(numm)
+    print('X value:',numm)
+    print('Actual sin(x) value:', actual_value)
     
     #Run approx for each x value
     summation = 0
     for each_value in range(50):
         #2. Calculate the factorial for n
-        n = (2*each_value)+1
-        factorial = my_fact(n)
+        a = (2*each_value)+1
+        factorial = my_fact(a)
         #3.calculate interations
-        iteration = ((-1**each_value)*(numm**n))/factorial
+        iteration = ((-1**each_value)*(numm**a))/factorial
         #4.Iteration update
         summation = summation + iteration
         if (iteration/summation) <= 1e-8:
             break
-    error = abs(abs(actual) - abs(summation))/numm
-    actual_array.append(actual)
+    error = abs(abs(actual_value) - abs(summation))/numm
+    actual_array.append(actual_value)
     approx_array.append(summation)
     err_array.append(error)
     print('Approx value:', summation)
@@ -93,9 +93,9 @@ plt.show()
 plt.plot(x_values,err_array)
 plt.title('X values versus Relative Error')
 plt.show()
-plt.plot(actual_array, approx_array)
-plt.title('Actual array versus Approx Array')
-plt.show()
+#plt.plot(actual_array, approx_array)
+#plt.title('Actual array versus Approx Array')
+#plt.show()
             
         
         

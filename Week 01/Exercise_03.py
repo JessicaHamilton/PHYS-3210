@@ -50,7 +50,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-x_values = np.arange(0,5,0.1)
+x_values = np.arange(0,10,0.1)
 def my_fact(n):
     return 1 if (n==1 or n==0) else n*my_fact(n-1)
 actual_array = []
@@ -70,12 +70,12 @@ for numm in x_values:
         n = (2*each_value)+1
         factorial = my_fact(n)
         #3.calculate interations
-        iteration = (((-1**each_value)*(numm**n))/factorial)
+        iteration = ((-1**each_value)*(numm**n))/factorial
         #4.Iteration update
         summation = summation + iteration
         if (iteration/summation) <= 1e-8:
             break
-    error = (abs(actual) - abs(summation))/numm
+    error = abs(abs(actual) - abs(summation))/numm
     actual_array.append(actual)
     approx_array.append(summation)
     err_array.append(error)
@@ -83,14 +83,16 @@ for numm in x_values:
     print('Number of iterations:', each_value)
     print("Error:", error)
 #print(actual_array, approx_array)
+
+plt.scatter(x_values, actual_array, s=2)
+plt.title('X values versus Actual sinx values')
+plt.show()
+plt.scatter(x_values, approx_array, s=2)
+plt.title('X values versus Approx sinx values')
+plt.show()
 plt.plot(x_values,err_array)
-plt.title('X Values versus Relative Error')
+plt.title('X values versus Relative Error')
 plt.show()
-plt.plot(x_values, actual_array)
-plt.title('X values versus actual sinx values')
-plt.show()
-plt.plot(x_values, approx_array)
-plt.title('X values versus approx sinx values')
 plt.plot(actual_array, approx_array)
 plt.title('Actual array versus Approx Array')
 plt.show()

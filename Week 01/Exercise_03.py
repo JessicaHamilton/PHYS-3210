@@ -50,7 +50,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-x_values = np.arange(0,10,0.1)
+x_values = np.arange(0,5,0.1)
 def my_fact(n):
     return 1 if (n==1 or n==0) else n*my_fact(n-1)
 actual_array = []
@@ -61,13 +61,13 @@ for numm in x_values:
     #1. Print exact value
     actual = np.sin(numm)
     print('X value',numm)
-    print('Actual sin(x) value:', np.sin(numm))
+    print('Actual sin(x) value:', actual)
     
     #Run approx for each x value
     summation = 0
     for each_value in range(50):
         #2. Calculate the factorial for n
-        n = (2*each_value) +1
+        n = (2*each_value)+1
         factorial = my_fact(n)
         #3.calculate interations
         iteration = (((-1**each_value)*(numm**n))/factorial)
@@ -83,11 +83,16 @@ for numm in x_values:
     print('Number of iterations:', each_value)
     print("Error:", error)
 #print(actual_array, approx_array)
-#plt.plot(x_values,err_array)
+plt.plot(x_values,err_array)
+plt.title('X Values versus Relative Error')
+plt.show()
 plt.plot(x_values, actual_array)
+plt.title('X values versus actual sinx values')
 plt.show()
 plt.plot(x_values, approx_array)
-#plt.plot(actual_array, approx_array)
+plt.title('X values versus approx sinx values')
+plt.plot(actual_array, approx_array)
+plt.title('Actual array versus Approx Array')
 plt.show()
             
         

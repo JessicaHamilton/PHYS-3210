@@ -15,5 +15,6 @@ Created on Wed Aug 28 10:02:58 2019
 #N_V(t) = number of free virions in the blood (viral load)
 #t = time
 #k_I = constant
+#k_V = constant
 #When we have a group of infected T-cells they produce virions which will infect new cells. This is speaking
 #to the rate at which 

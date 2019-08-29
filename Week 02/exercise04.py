@@ -19,7 +19,7 @@ alpha = 1
 beta = 1000
 
 viral_load = A*np.exp(-alpha*time)+B*np.exp(-beta*time)
-
+#plot 
 plt.scatter(time,viral_load, s=2, color= 'green', label= 'Model')
 plt.title("Concentration of Viral Load Versus Time")
 plt.xlabel("Time")
@@ -49,29 +49,36 @@ def fitting(A,B,alpha,beta,time):
     data_viralload = HIV_data['viral_load']
     #define equation
     v_load = A*np.exp(-alpha*time)+B*np.exp(-beta*time)
-    return time,v_load
+    #plot all
+    first = plt.scatter(time,viral_load, s=2, color= 'green', label= 'Model')
+    second = plt.scatter(data_time, data_viralload, color = 'navy', label= 'Actual')
+    plt.title("Concentration of Viral Load Versus Time")
+    plt.xlabel("Time")
+    plt.ylabel("Concentration")
+    return first,second
 
 
 #Testing Out the function by varying alpha and A while beta and B are fixed
-#plot all and save to a pdf    
-test1_t, test1_v = fitting(240000,900,1,1000,time)
-test2_t,test2_v = fitting(2000,900,5,1000,time)
-test3 = fitting(10000,900,4,1000,time)
-test4 = fitting(50000,900,3,1000,time)
-test5 = fitting(100000,900,2,1000,time)
+#plot all and save to a pdf
+    
+test1 = fitting(240000,900,1,1000,time)
+#test2 = fitting(2000,900,5,1000,time)
+#test3 = fitting(10000,900,4,1000,time)
+#test4 = fitting(50000,900,3,1000,time)
+#test5 = fitting(100000,900,2,1000,time)
 
 plt.scatter(test1)
-plt.scatter(test2)
-plt.scatter(test3)
-plt.scatter(test4)
-plt.scatter(test5)
+#plt.scatter(test2)
+#plt.scatter(test3)
+#plt.scatter(test4)
+#plt.scatter(test5)
 plt.title("Concentration of Viral Load Versus Time")
 plt.xlabel("Time")
 plt.ylabel("Concentration")
 
 
 
-
+#Cheak to see how we are to do this...load outside or inside?? time or no time
 
 
 

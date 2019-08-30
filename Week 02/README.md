@@ -1,4 +1,4 @@
-## Week 02: More Advanced Python
+z## Week 02: More Advanced Python
 
 ### Readings
  1. Handout (by Monday)

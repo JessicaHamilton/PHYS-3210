@@ -42,28 +42,6 @@ plt.show()
 def fitting(A,B,alpha,beta,time):
     import numpy as np
     import matplotlib.pyplot as plt
-    #load data and assign variables
-    #time must be defined outside of function at calling
-    HIV_data = np.load(r"\Users\hamil\Documents\Github\PHYS-3210\Week 01\data\HIVseries.npz")
-    data_time = HIV_data['time_in_days']
-    data_viralload = HIV_data['viral_load']
-    #define equation
-    v_load = A*np.exp(-alpha*time)+B*np.exp(-beta*time)
-    #plot all
-    first = plt.scatter(time,viral_load, s=2, color= 'green', label= 'Model')
-    second = plt.scatter(data_time, data_viralload, color = 'navy', label= 'Actual')
-    plt.title("Concentration of Viral Load Versus Time")
-    plt.xlabel("Time")
-    plt.ylabel("Concentration")
-    plt.legend()
-    return first,second
-
-
-
-
-def fitting(A,B,alpha,beta,time):
-    import numpy as np
-    import matplotlib.pyplot as plt
     #define equation
     v_load = A*np.exp(-alpha*time)+B*np.exp(-beta*time)
     return v_load

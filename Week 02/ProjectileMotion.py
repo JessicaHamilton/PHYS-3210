@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 def projectile(mass,initial_pos,initial_v, launch_angle):
     force_g = 9.8
-    time = np.arange(0,100,0.1)
+    time = np.arange(0,100,1)
     final_x_array =[]
     final_y_array =[]
     velocity_x_array =[]
@@ -19,9 +19,9 @@ def projectile(mass,initial_pos,initial_v, launch_angle):
     change_time = 0.1
     for each_time in time:
         #calculate output variables and append to array
-        final_x = (initial_pos*np.cos(launch_angle))+((initial_v*np.cos(launch_angle))*change_time)
+        final_x = (initial_pos*np.cos(launch_angle))+((initial_v*np.cos(launch_angle))*(change_time))
         final_x_array.append(final_x)
-        final_y = (initial_pos*np.sin(launch_angle))+((initial_v*np.sin(launch_angle))*change_time)
+        final_y = (initial_pos*np.sin(launch_angle))+((initial_v*np.sin(launch_angle))*(change_time))
         final_y_array.append(final_y)
         velocity_x = initial_v*np.cos(launch_angle)
         velocity_x_array.append(velocity_x)
@@ -29,8 +29,9 @@ def projectile(mass,initial_pos,initial_v, launch_angle):
         velocity_y_array.append(velocity_y)
         
         #re-define input variables
+        initial_v = -(initial_pos*np.sin(launch_angle))+(1(initial_v*np.sin(launch_angle)*change_time))
         initial_pos = np.sqrt(final_y**2 + final_x**2)
-        initial_v = np.sqrt(velocity_y**2 + velocity_x**2)
+        #initial_v = np.sqrt(velocity_y**2 + velocity_x**2)
         #print(initial_v)
         if final_y <= 0:
             break

@@ -41,14 +41,16 @@ def projectile(mass,initial_pos,initial_v, launch_angle):
     return final_x_array, final_y_array, total_time
 
 
-test1 = projectile(5,0,10,np.radians(15))
-test2 = projectile(5,0,10,np.radians(30))
-test3 = projectile(5,0,10,np.radians(45))
+test_1 = projectile(5,0,10,np.radians(15))
+test_2 = projectile(5,0,10,np.radians(30))
+test_3 = projectile(5,0,10,np.radians(45))
 
-print("total time:", test1[2])
-plt.scatter(test1[0],test1[1], s=2, label = "15 deg Launch")
-plt.scatter(test2[0], test2[1], s=2, label = "30 deg Launch")
-plt.scatter(test3[0],test3[1], s=2, label = "45 deg Launch")
+print("total time for test1:", test_1[2])
+print("Total time for test2:", test_2[2])
+print("Total time for test3:", test_3[2])
+plt.scatter(test_1[0],test_1[1], s=3, label = "15 deg Launch")
+plt.scatter(test_2[0], test_2[1], s=3, label = "30 deg Launch")
+plt.scatter(test_3[0],test_3[1], s=3, label = "45 deg Launch")
 plt.title("Trajectory of projectile at 15, 30 and 45 Degrees")
 plt.xlabel("Position in X")
 plt.ylabel("Position in Y")
@@ -59,7 +61,7 @@ plt.show()
 
 def projectile(mass,initial_pos,initial_v, launch_angle):
     force_g = 9.8
-    c = 3.0e08
+    c = 2.0e-03
     final_x_array =[]
     final_y_array =[]
     velocity_x_array =[]
@@ -95,14 +97,20 @@ def projectile(mass,initial_pos,initial_v, launch_angle):
     return final_x_array, final_y_array, total_time
 
 
-test1 = projectile(5,0,10,np.radians(15))
-test2 = projectile(5,0,10,np.radians(30))
-test3 = projectile(5,0,10,np.radians(45))
+test1 = projectile(6,0,10,np.radians(15))
+test2 = projectile(6,0,10,np.radians(30))
+test3 = projectile(6,0,10,np.radians(45))
 
-print("total time:", test1[2])
-plt.scatter(test1[0],test1[1], s=2, label = "15 deg Launch")
-plt.scatter(test2[0], test2[1], s=2, label = "30 deg Launch")
-plt.scatter(test3[0],test3[1], s=2, label = "45 deg Launch")
+
+print("total time for test1:", test1[2])
+print("Total time for test2:", test2[2])
+print("Total time for test3:", test3[2])
+plt.scatter(test_1[0],test_1[1], s=3, c= "#BB8FCE")
+plt.scatter(test_2[0], test_2[1], s=3, c="#3498DB")
+plt.scatter(test_3[0],test_3[1], s=3, c= "#5B2C6F")
+plt.scatter(test1[0],test1[1], s=2, c= "#BB8FCE", label = "15 deg Launch")
+plt.scatter(test2[0], test2[1], s=2, c= "#3498DB", label = "30 deg Launch")
+plt.scatter(test3[0],test3[1], s=2, c= "#5B2C6F", label = "45 deg Launch")
 plt.title("Trajectory of projectile with added drag")
 plt.xlabel("Position in X")
 plt.ylabel("Position in Y")

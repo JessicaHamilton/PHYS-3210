@@ -44,10 +44,12 @@ def projectile(mass,initial_pos,initial_v, launch_angle):
 test_1 = projectile(5,0,10,np.radians(15))
 test_2 = projectile(5,0,10,np.radians(30))
 test_3 = projectile(5,0,10,np.radians(45))
+test_4 = projectile(5,0,10,np.radians(60))
 
 print("total time for test1:", test_1[2])
 print("Total time for test2:", test_2[2])
 print("Total time for test3:", test_3[2])
+plt.scatter(test_4[0],test_4[1], s=3, label = "60 deg Launch")
 plt.scatter(test_1[0],test_1[1], s=3, label = "15 deg Launch")
 plt.scatter(test_2[0], test_2[1], s=3, label = "30 deg Launch")
 plt.scatter(test_3[0],test_3[1], s=3, label = "45 deg Launch")
@@ -97,9 +99,9 @@ def projectile(mass,initial_pos,initial_v, launch_angle):
     return final_x_array, final_y_array, total_time
 
 
-test1 = projectile(6,0,10,np.radians(15))
-test2 = projectile(6,0,10,np.radians(30))
-test3 = projectile(6,0,10,np.radians(45))
+test1 = projectile(10,0,10,np.radians(15))
+test2 = projectile(10,0,10,np.radians(30))
+test3 = projectile(10,0,10,np.radians(45))
 
 
 print("total time for test1:", test1[2])

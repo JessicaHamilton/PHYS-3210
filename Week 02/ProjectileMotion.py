@@ -38,7 +38,7 @@ def projectile(mass,initial_pos,initial_v, launch_angle):
         total_time = each_time + 0.1
         if final_y <= 0:
             break
-    return final_x_array, final_y_array, total_time
+    return final_x_array, final_y_array, total_time, final_x
 
 
 test_1 = projectile(5,0,10,np.radians(15))
@@ -46,17 +46,19 @@ test_2 = projectile(5,0,10,np.radians(30))
 test_3 = projectile(5,0,10,np.radians(45))
 test_4 = projectile(5,0,10,np.radians(60))
 
+print("Final x position:", test_1[3])
 print("total time for test1:", test_1[2])
 print("Total time for test2:", test_2[2])
 print("Total time for test3:", test_3[2])
-plt.scatter(test_4[0],test_4[1], s=3, label = "60 deg Launch")
 plt.scatter(test_1[0],test_1[1], s=3, label = "15 deg Launch")
 plt.scatter(test_2[0], test_2[1], s=3, label = "30 deg Launch")
 plt.scatter(test_3[0],test_3[1], s=3, label = "45 deg Launch")
-plt.title("Trajectory of projectile at 15, 30 and 45 Degrees")
+plt.scatter(test_4[0],test_4[1], s=3, label = "60 deg Launch")
+plt.title("Trajectory of 5kg projectile at 15, 30, 45, and 60 Degrees")
 plt.xlabel("Position in X")
 plt.ylabel("Position in Y")
 plt.legend()
+plt.savefig("ProjectileMotionPart1.pdf")
 plt.show()
 
 #Now add in air resistance/Drag and run same tests
@@ -99,9 +101,9 @@ def projectile(mass,initial_pos,initial_v, launch_angle):
     return final_x_array, final_y_array, total_time
 
 
-test1 = projectile(10,0,10,np.radians(15))
-test2 = projectile(10,0,10,np.radians(30))
-test3 = projectile(10,0,10,np.radians(45))
+test1 = projectile(8,0,10,np.radians(15))
+test2 = projectile(8,0,10,np.radians(30))
+test3 = projectile(8,0,10,np.radians(45))
 
 
 print("total time for test1:", test1[2])
@@ -113,8 +115,13 @@ plt.scatter(test_3[0],test_3[1], s=3, c= "#5B2C6F")
 plt.scatter(test1[0],test1[1], s=2, c= "#BB8FCE", label = "15 deg Launch")
 plt.scatter(test2[0], test2[1], s=2, c= "#3498DB", label = "30 deg Launch")
 plt.scatter(test3[0],test3[1], s=2, c= "#5B2C6F", label = "45 deg Launch")
-plt.title("Trajectory of projectile with added drag")
+plt.title("Trajectory of 8 kg projectile with added drag")
 plt.xlabel("Position in X")
 plt.ylabel("Position in Y")
+plt.xlim(0,110)
+plt.ylim(0,30)
 plt.legend()
+plt.savefig("ProjectileMotionPart2.pdf")
 
+x =10*np.cos(np.radians(15))*(2.7)
+print(x)

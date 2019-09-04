@@ -50,6 +50,7 @@ print("Final x position:", test_1[3])
 print("total time for test1:", test_1[2])
 print("Total time for test2:", test_2[2])
 print("Total time for test3:", test_3[2])
+print("Total time for test4:", test_4[2])
 plt.scatter(test_1[0],test_1[1], s=3, label = "15 deg Launch")
 plt.scatter(test_2[0], test_2[1], s=3, label = "30 deg Launch")
 plt.scatter(test_3[0],test_3[1], s=3, label = "45 deg Launch")
@@ -98,12 +99,12 @@ def projectile(mass,initial_pos,initial_v, launch_angle):
         total_time = each_time + 0.1
         if final_y <= 0:
             break
-    return final_x_array, final_y_array, total_time
+    return final_x_array, final_y_array, total_time,velocity_y_array
 
 
-test1 = projectile(8,0,10,np.radians(15))
-test2 = projectile(8,0,10,np.radians(30))
-test3 = projectile(8,0,10,np.radians(45))
+test1 = projectile(6,0,10,np.radians(15))
+test2 = projectile(6,0,10,np.radians(30))
+test3 = projectile(6,0,10,np.radians(45))
 
 
 print("total time for test1:", test1[2])

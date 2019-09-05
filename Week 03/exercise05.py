@@ -67,3 +67,8 @@ for new_value in x_values:
     
 plt.plot(x_values,fraction_array)
 
+# When looking at the values for the sum up versus sum down, the sum down is more precise due to the fact that
+#the larger the number decimal place-wise, the less values the computer can store, it will reach built in limit 
+#that computer can store values. Therefore when adding smaller and smaller value numbers to already larger
+#decimal placed numbers,the computer will just drop them and will not change the value. But With the sum down
+#approach, you start with the small numbers and then slowly add more and more larger valued numbers. 

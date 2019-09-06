@@ -93,15 +93,30 @@ for each_walker in range(100):
 print(final_distances)
 
 #According to the array of final distances, each walker does not end up at the same distance which
-# is what I expected. I think this is right. 
+#is what I expected. I think this is right. 
 
 #Makes a histogram of the final distances and find average distance, standard deviation, median distance
-std_div = np.
+#hist, bins = np.histogram(final_distances)
+plt.show()
+hist = np.histogram(final_distances)
+max_value = np.max(hist[0])
+#print("This is the median value according to Hist:", max_value)
+plt.hist(final_distances)
+std_div = np.std(final_distances)
+median_value = np.median(final_distances)
+average_value = np.average(final_distances)
+print("Standard Deviation is:", std_div)
+print("Average distance is:", average_value)
+print("Median distance is:", median_value)
 
-hist = histogram(final_distances)
-hist.plot()
-
-
+#For the distribution of distances, it is not quite gaussian as I was expecting, but there is a distance
+#and the median distance is actually not too far off typically. This would indicate that there is not
+#as much randomness as you would think in the values since there is somewhat of a trend. Each time the code 
+#runs, there is a Gaussian like or Poissian like shape. This is not quite what I expected. On the surface,
+#it all seems random and the numbers would be all over the place. But this is not quite the case. It seems
+#there is a typical distance a walker will walk statistically speaking.This type of simulation could be 
+#used for park or city developers to determine the best flow of traffic, where to build and where not to 
+#build structures. 
 
 
 

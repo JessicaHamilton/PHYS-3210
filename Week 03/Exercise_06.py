@@ -118,6 +118,8 @@ print("Median distance is:", median_value)
 #used for park or city developers to determine the best flow of traffic, where to build and where not to 
 #build structures. 
 
+#Challenge: take from 2-D to 3-D and compare the two
+
 
 
 

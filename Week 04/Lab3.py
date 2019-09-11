@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 x = 0
 y = 0
 x_y_array = [[0,0]]
-N = 30
+N = 40
 #loop for determining the new coordinates
 for each_value in range(N):
     #define the random int for x and y = to -1,0,1
@@ -22,13 +22,15 @@ for each_value in range(N):
     
     # the two do not match:
     if abs(x_next) != abs(y_next):
-        x = x + x_next
-        y = y + y_next
-        if abs(x) <= 5 or abs(y) <=5:
-            coord = [x,y]
+        x_maybe = x + x_next
+        y_maybe = y + y_next
+        if abs(x_maybe) <= 5 or abs(y_maybe) <=5:
+            coord = [x_maybe,y_maybe]
             if coord in x_y_array:
                 continue
             else:
+                x = x_maybe
+                y = y_maybe
                 x_y_array.append(coord)
 
 print("This is the array of coordinates:", x_y_array)

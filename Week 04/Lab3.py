@@ -13,7 +13,9 @@ import matplotlib.pyplot as plt
 x = 0
 y = 0
 x_y_array = [[0,0]]
-N = 40
+N = 800
+polar_array = [[]]
+nonpolar_array = [[]]
 #loop for determining the new coordinates
 for each_value in range(N):
     #define the random int for x and y = to -1,0,1
@@ -32,13 +34,29 @@ for each_value in range(N):
                 x = x_maybe
                 y = y_maybe
                 x_y_array.append(coord)
+                random_value = rand.random()
+                if random_value >= 0.68:
+                    polar_array.append(coord)
+                else: 
+                    nonpolar_array.append(coord)
 
 print("This is the array of coordinates:", x_y_array)
+print("Polar Monomers:", polar_array)
+print("Non-polar array:", nonpolar_array)
 x_y_array = np.array(x_y_array)
+polar_array = np.array(polar_array)
+nonpolar_array = np.array(nonpolar_array)
 x_values = x_y_array[:,0]
 y_values = x_y_array[:,1]
-plt.plot(x_values, y_values)
+polar_x = polar_array[:,1]
+polar_y = polar_array[:,1]
+non_polar_x = nonpolar_array[:,0]
+non_polar_y = nonpolar_array[:,1]
+plt.plot(x_values, y_values, color='purple')
+plt.scatter(polar_x, polar_y, s=3, color = 'pink')
+plt.scatter(non_polar_x, non_polar_y, s=3, color= 'gray')
 plt.title("Random Walker Self-Avoiding Path")
+plt.scatter()
 plt.show()
     
         

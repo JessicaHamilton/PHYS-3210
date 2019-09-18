@@ -57,6 +57,7 @@ plt.title("Concentration of Viral Load Versus Time")
 plt.xlabel("Time")
 plt.ylabel("Concentration")
 plt.legend()
+#plt.savefig("InitialViralLoad.pdf")
 
 time = np.linspace(0,10,101)
 test1 = fitting(240000,900,1,1000,time)
@@ -76,7 +77,7 @@ plt.title("Concentration of Viral Load Versus Time")
 plt.xlabel("Time")
 plt.ylabel("Concentration")
 plt.legend()
-plt.savefig("TestingViralLoad.pdf")
+#plt.savefig("TestingViralLoad.pdf")
 
 
 

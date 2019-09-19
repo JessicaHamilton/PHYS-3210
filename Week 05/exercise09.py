@@ -8,18 +8,19 @@ Created on Wed Sep 18 10:09:32 2019
 import numpy as np
 import matplotlib.pyplot as plt
 
-x_values = np.arange(0,20,1)
+#Create function to take the integral of / area under the curve
+x_values = np.arange(0,10,0.5)
 y_values = x_values**2
 
+#Define function that will use definition of the sum of the rectangle areas underneath curve
 def integral_funct(h, initial, final):
     #determine the rectangle and the area using left side of rectangle
-    value = y_values[0]
     area_array = []
-    bound_array =np.arange(initial, final,1)
-    for each_value in bound_array:
-        area = 0.5*h*((value)**2)
+    x_values = 
+    y_values = x_values**2
+    for each_num in y_values:
+        area = each_num*h
         area_array.append(area)
-        value = value + h
     total_sum = np.sum(area_array)
     return area_array, total_sum
     

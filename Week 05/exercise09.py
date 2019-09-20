@@ -33,7 +33,7 @@ def integral_funct(h, initial, final):
 
 #Test the integral function for x**2 from x=1 to x=10
 
-test1 = integral_funct(0.1,0,10)
+test1 = integral_funct(0.01,0,10)
 test1_area = test1[0]
 #print("This is the individual area array:",test1_area)
 #test1_sum = test1[1]  
@@ -43,15 +43,15 @@ print("Total area calculated by my function:",test1_sum)
 #for the example test is about 333.33. 
 
 #Now compare to the trapz function
-test_trapz = np.trapz(y_values,x_values, dx=0.1)
+test_trapz = np.trapz(y_values,x_values, dx=0.01)
 print("Total integral calculated by the Numpy's Trapz funct:",test_trapz)
 
 #This is a better comparison to my function versus the analytical value. The value
 #provided by the trapz is in between the two other values.
 
 #Now use different functions from scipy to compute the integral
-attempt1 = scipy.integrate.trapz(y_values,x_values, dx=0.1)
-attempt2 = scipy.integrate.simps(y_values,x_values, dx=0.1)
+attempt1 = scipy.integrate.trapz(y_values,x_values, dx=0.01)
+attempt2 = scipy.integrate.simps(y_values,x_values, dx=0.01)
 def x_squared(x):
     y = x**2
     return y

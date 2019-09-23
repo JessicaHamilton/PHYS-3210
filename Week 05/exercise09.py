@@ -11,15 +11,15 @@ import scipy
 from scipy import integrate
 
 #Create function to take the integral of / area under the curve
-#x_values = np.arange(0,10,0.1)
-#y_values = x_values**2
+x_values = np.arange(0,10,0.01)
+y_values = x_values**2
 
 #Define function that will use definition of the sum of the rectangle areas underneath curve
 def integral_funct(h, initial, final):
     #determine the rectangle and area using left side y-value of rectangle
     area_array = []
     y_values = []
-    x_values = np.arange(initial,final,0.1)
+    x_values = np.arange(initial,final,0.01)
     for numm in x_values:
         new_value = numm**2
         y_values.append(new_value)
@@ -36,7 +36,7 @@ def integral_funct(h, initial, final):
 test1 = integral_funct(0.01,0,10)
 test1_area = test1[0]
 #print("This is the individual area array:",test1_area)
-#test1_sum = test1[1]  
+test1_sum = test1[1]  
 print("Total area calculated by my function:",test1_sum)  
 
 #This is not as close in value as I thought it would be. Analytically, the value

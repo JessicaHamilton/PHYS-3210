@@ -10,13 +10,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-#create the a and y values for the square
-#create the a and y values for the square
-N = 20000
+#create the x and y values for the square
+N = 800000
 N_pond = N
 newx = []
 newy = []
 y_circle = []
+xy_array = []
 for n in range(N):
     newx.append((rand.random() - 0.5)*2.0)
     newy.append((rand.random() - 0.5)*2.0)
@@ -24,34 +24,35 @@ for n in range(N):
     #y.append((rand.random() - 0.5)*2.0)
     x = np.array(newx)
     y = np.array(newy)
-xy_array=[x,y]
+    xy_array = [x,y]
 
-plt.scatter(x,y, color='purple', s=2)
-
+#plt.scatter(x,y, color='purple', s=2)
 
 #Calculate distance for each point from square's center  
 for each in xy_array:
     value1 = np. square(xy_array[0])
     value2 = np.square(xy_array[1])
     dist_array = np.sqrt(value1 + value2)
-    for value in dist_array:
-        if value <= 1:
-            N_pond = N_pond + 1
-            plt.scatter(xy_array[each])
+    if value in dist_array <= 1:
+        N_pond = N_pond + 1
+    #for value in dist_array:
+        #if value <= 1:
+            #N_pond = N_pond + 1
+            #plt.scatter(xy_array[each])
 #plt.scatter(xy_array[0], xy_array[1], color = 'pink')
     
-"""    
-x = np.square(x)
-y = np.square(y)
-dist_array = np.sqrt(x + y)
-#add more points to N_pond for less than 1
-N_pond = N
-for number in dist_array:
-    if number <= 1:
-        N_pond = N_pond + 1
-"""        
+        
 ratio = N_pond / N
 print("Ratio of N_pond / N, approx for pi:", ratio)
+
+
+
+
+
+
+
+
+
 
 """
 N = 10000

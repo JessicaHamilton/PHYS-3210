@@ -29,9 +29,9 @@ def meanvalue_Int(N, initial,final):
         y_array.append(y)
         
     #calculate mean value and append to array
-    mean_some = 1
+    
     y_mean = np.sum(y)
-    result = 1*y_mean
+    result = 1*y_mean/10
     """
     first = y_array[0]
     last = y_array[-1]

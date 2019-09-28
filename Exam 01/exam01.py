@@ -11,45 +11,48 @@ import numpy.random as rand
 
 #first function for old version of game
 def old_cherry(N):
-    #initialize values for the tree and the basket and set range for turns
+    #initialize values for tree,basket, and turns
     Cherry_tree = 10
     Basket = 0
-    turns_played = 0
+    spins = 0
     #set loop for number of spins
-    for turn in range(1,N):
+    for turn in range(N):
         #setup if statement to randomly generate a value between 0 and 1 for the weight of the spin
         weight = rand.random()
-        if weight <= 0.75:
-            spin = rand.randint(0,3)
-        else:
-            spin = rand.randint(4,6)
-            
+        #If lower - generate spin to increase basket
+        if weight <= 0.60:
+            spin = rand.randint(0,4)
             #determine what happens with each spin    
             if spin == 0:
                 Cherry_tree = Cherry_tree - 1
                 Basket = Basket + 1
                 if Basket == 10:
-                    turns_played = turn
+                    spins = spins + 1
                     break
             elif spin == 1:
                 Cherry_tree = Cherry_tree - 2
                 Basket = Basket + 2
                 if Basket == 10:
-                    turns_played = turn
+                    spins = spins + 1
                     break
             elif spin == 2:
                 Cherry_tree = Cherry_tree - 3
                 Basket = Basket + 3
                 if Basket == 10:
-                    turns_played = turn
+                    spins = spins + 1
                     break
             elif spin == 3:
                 Cherry_tree = Cherry_tree - 4
                 Basket = Basket + 4
                 if Basket == 10:
-                    turns_played = turn
+                    spins = spins + 1
                     break
-            elif spin == 4 or spin == 5:
+                
+        #if higher, generate spin to decrease basket       
+        elif weight >= 0.61:
+            #determine what happens with each spin
+            spin = rand.randint(4,7)
+            if spin == 4 or spin == 5:
                 if Basket < 2 and Basket > 0:
                     Cherry_tree = Cherry_tree +1
                     Basket = Basket -1
@@ -62,85 +65,80 @@ def old_cherry(N):
                 length = Basket
                 Cherry_tree = Cherry_tree + length
                 Basket = 0
-
-        turns_played = turns_played
-        return turns_played
-#Print(“The amount of turns it takes to win:”, turns)
+        spins = spins + 1
+    return spins
 
 def new_cherry(N):
 
     #initialize values for the tree and the basket and set range for turns
     Cherry_tree = 10
     Basket = 0
-    turns_played2 = 0
-    for turns in range(N):
+    spins2 = 0
+    for t in range(N):
         #randomly generate integers between 0 and 7 to simulate the different options the spinner can land on
-        spins = rand.randint(0,6,1)
+        spinnn = rand.randint(0,7)
         #Setup if statement to clarify what happens in each spin, may not actually need for loop!!
-        if spins == 0:
+        if spinnn == 0:
             Cherry_tree = Cherry_tree - 1
             Basket = Basket + 1
             if Basket == 10:
-                turns_played2 = turns
+                spins2 = spins2 + 1
                 break
-        elif spins == 1:
+        elif spinnn == 1:
             Cherry_tree = Cherry_tree - 2
             Basket = Basket + 2
             if Basket == 10:
-                turns_played2 = turns
+                spins2 = spins2 + 1
                 break
-        elif spins == 2:
+        elif spinnn == 2:
             Cherry_tree = Cherry_tree - 3
             Basket = Basket + 3
             if Basket == 10:
-                turns_played2 = turns
+                spins2 = spins2 + 1
                 break
-        elif spins == 3:
+        elif spinnn == 3:
             Cherry_tree = Cherry_tree - 4
             Basket = Basket + 4
             if Basket == 10:
-                turns_played2 = turns
+                spins2 = spins2 + 1
                 break
-        elif spins == 4 or spins == 5:
+        elif spinnn == 4 or spinnn == 5:
             if Basket < 2 and Basket >=0:
                 Cherry_tree = Cherry_tree + 1
                 Basket = Basket - 1
+                
             elif Basket >= 2:
                 Cherry_tree = Cherry_tree + 2
                 Basket = Basket - 2
             else:
                 continue
-        elif spins == 6:
+        elif spinnn == 6:
             lengths = Basket
             Cherry_tree = Cherry_tree + lengths
             Basket = 0
-    turn_played2 = turns_played2
-    return turn_played2
+        spins2 = spins2 + 1
+        
+    
+    return spins2
 
-
-
-test1 = old_cherry(50)
-#print("Turns for old version:",(test1+1))
-test2 = new_cherry(50)
-#print("Turns for new version:",(test2+1))    
 
 
 old_array = []
 new_array = []
 for each_num in range(10):
-    test1 = old_cherry(1000)
-    count = test1+1
-    old_array.append(test1)
+    test1 = old_cherry(50)
+    count = test1
+    old_array.append(count)
     averageold = np.mean(old_array)
     
-    test2 = new_cherry(1000)
-    count2 = test2+1
-    new_array.append(test2)
+    test2 = new_cherry(50)
+    count2 = test2
+    new_array.append(count2)
     averagenew = np.mean(new_array)
     
 
-print("Turns for old version:",averageold)   
-print("Turns for new version:",averagenew)    
+print("Average number of Turns for old version:",averageold)   
+print("Average number of Turns for new version:",averagenew)    
     
     
     

@@ -19,19 +19,20 @@ def meanvalue_Int(N, initial,final):
     mean_array = []
     x_array = []
     y_array = []
+    D = 10
     for n in range(N):
-        #Generate the sampling values for x  and calculate y values
-        #for n in range(N):
-        x = rand.uniform(initial,final)
-        x_array.append(x)
-        sum_x = np.sum(x)
+        for numm in range(D):
+        #Generate the sampling values for x and calculate y values
+            x = rand.uniform(initial,final)
+            x_array.append(x)
+        sum_x = np.sum(x_array)
         y = sum_x**2
         y_array.append(y)
         
     #calculate mean value and append to array
     
-    y_mean = np.sum(y)
-    result = 1*y_mean/10
+    y_mean = np.sum(y)/ 10
+    result = y_mean
     """
     first = y_array[0]
     last = y_array[-1]

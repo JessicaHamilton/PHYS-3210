@@ -9,32 +9,36 @@ import numpy as np
 import matplotlib.pyplot as plt
 import numpy.random as rand
 
-N = 50
+N = 500
 funct_array = []
 random_array= []
 x_array = []
 y_array = []
-y1_array = []
-for numbers in range(N):
-    #define function to relate back to with random point
+xy_array = []
+xy2_array = []
+y_array = rand.uniform(0,10,100)
+for each in range(0,len(y_array)):
     x = rand.uniform(0,10)
     x_array.append(x)
-    #generate corresponding y value for function
     y = x**2
-    point = [x,y]
-    funct_array.append(point)
-    #now generate random y value to compare
-    y1 = rand.uniform(1,100)
-    if y > y1:
-        y1_array.append(y1)
+    if y >= each:
+        xy = [x, each]
+        xy_array.append(xy)
     else:
-        y_array.append(y1)
-
-print(len(x_array), len(y_array), len(y1_array))
-#plt.scatter(x_array, y_array, s=2, color = 'blue')
-#plt.scatter(x_array, y1_array,s=2,  color = 'green')
-
-
-
+        xy2 = [x,each]
+        xy2_array.append(xy)
+        
+print(len(x_array), len(y_array), len(xy_array), len(xy2_array))        
+"""        
+for numbers in range(N):
+    #define function to relate back to with random point
+    #calculate the two different y values in question
+    #generate corresponding y value for function
+    x = rand.uniform(0,10)
+    x_array.append(x)
+    y = rand.uniform(0,10)
+    y_array.append(y)
+    
+"""
 
 

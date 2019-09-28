@@ -69,3 +69,6 @@ print("book version for error:",st_div2)
 print("error for large N:", st_div3)
 #The two different values for the standard deviation are quite quite different 
 #than my calculated value for the standard deviation
+
+
+

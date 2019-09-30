@@ -20,40 +20,38 @@ def meanvalue_Int(N, initial,final):
     x_array = []
     y_array = []
     D = 10
-    for n in range(N):
-        for numm in range(D):
-        #Generate the sampling values for x and calculate y values
-            x = rand.uniform(initial,final)
-            x_array.append(x)
-        sum_x = np.sum(x_array)
-        y = sum_x**2
-        y_array.append(y)
-        
-    #calculate mean value and append to array
-    
-    y_mean = np.sum(y)/ 10
-    result = y_mean
-    """
-    first = y_array[0]
-    last = y_array[-1]
-    mean_value = abs(last - first)
-    mean_array.append(mean_value)
-        
-    total_mean = np.prod(mean_array)
-    total_sum = np.sum(sum_array)
-    result = (total_mean*total_sum)/N
-    """
-    return y_mean, result, x_array, #y_array
-    
-    
+    #set up iteration for function
+    for numm in range(N):
+        #Generate the sampling values for x
+        for s in range(final):
+            x = rand.uniform(initial,final,final)
+            #x_array.append(x)
+        #sum the x values
+        sum_x = np.sum(x)
+        #square the sum to find y_value
+    y = sum_x**2
+    result = y/N
+    return result,x
 
-a,aa,aaa = meanvalue_Int(1000,0,10)
-b,bb,bbb = meanvalue_Int(1000,0,10)
-c,cc,ccc = meanvalue_Int(1000,0,10)
-d,dd,ddd = meanvalue_Int(1000,0,10)
 
-print(a,b,c,d)
-#print(aaa)
+##Testing function 
+a = meanvalue_Int(100,0,10)
+b = meanvalue_Int(100,0,10)
+c = meanvalue_Int(100,0,10)
+d = meanvalue_Int(100,0,10)
+
+print("This is the results for four different runs:",a,b,c,d)
+
+#The analytical solution is 25.83333. This shows that my function will be relatively close to the 
+#the value, but not very precise. My numbers ranging from 17 to 30. 
+
+#Getting an average value for 50 runs.
+total_array =[]
+for values in range(50):
+    new = meanvalue_Int(100,0,10)
+    total_array.append(new)
+    ave_ans = np.mean(total_array)
+print("This is the average value for 50 runs:", ave_ans)
 
     
  

@@ -11,6 +11,7 @@ import numpy.linalg as lin
 
 #create matrix 
 A = [[4,-2,1],[3,6,-4],[2,1,8]]
+A = np.array(A)
 print("Initial Matrix:", A)
 #compute determinate of matrix
 a = A[0][0]
@@ -26,13 +27,12 @@ det_one = a*((e*i) - (f*h))
 det_two = b*((d*i)-(f*g))
 det_three = c*((d*h)-(e*g))
 det = det_one - det_two + det_three
-print(det)
-
+print("The determinant:", det)
 
 #Transpose the matrix
 A_t = np.transpose(A)
 print("Transpose of A:",A_t )
-A_inverse = A_t/ det
+A_inverse = (1/det)*A_t
 print("Inverse of A:", A_inverse)
 
 

@@ -31,7 +31,7 @@ def meanvalue_Int(N, initial,final):
         #square the sum to find y_value
     y = sum_x**2
     result = y/N
-    return result,x
+    return result
 
 
 ##Testing function 
@@ -50,8 +50,21 @@ total_array =[]
 for values in range(50):
     new = meanvalue_Int(100,0,10)
     total_array.append(new)
-    ave_ans = np.mean(total_array)
-print("This is the average value for 50 runs:", ave_ans)
+ave_ans = np.mean(new)
+print("This is the average value for 50 runs and 100 iterations:", ave_ans)
+#when running the code 50 times to iterate 100 times for the mean value integral, the average is pretty
+#close to what we expect. 23.855 to 25.833. Although, the value actually ranges pretty bug still. 
 
-    
+#now we will try to up the iterations...
+tot_array = []
+for val in range(10000):
+    new1 = meanvalue_Int(100,0,10)
+    tot_array.append(new1)
+ave_answer = np.mean(new1)
+print("This is the average value for 500 runs:", ave_answer)
+#When changing the iterations, if the value of iterations were too small, the result was too large, if the value
+#of N was too big, the result was too small. For me, about 100 was good.
+#This method of determining the integral seems faster in computing. The code does take a second,
+#but it is far better than I expected.
+
  

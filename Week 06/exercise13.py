@@ -64,25 +64,24 @@ def Probint2(N, initial, final, up_limit, down_limit):
     N_out = N
     for n in range(N):
         x = rand.uniform(initial,final)
-        y = rand.uniform(initial,final)
+        y = rand.uniform(initial,up_limit)
         y2 = np.sin(x)
         if (y < y2) and (y >= 0) or (y > y2) and (y <= 0):
             topx.append(x)
             topy.append(y)
-            N_out = N - 1
+            N_out = N - 2
         else:
             botx.append(x)
             boty.append(y)
     tot_top = len(topy)
     tot_bot = len(boty)
-    total = tot_top + tot_bot
     ratio = N/N_out
     lowx = np.min(botx)
     highx = np.max(botx)
     lowy = np.min(boty)
-    highy = np.max(topy)
-    xvalue = lowx+highx
-    yvalue = lowy+highy
+    highy = np.max(boty)
+    xvalue = highx+lowx
+    yvalue = highy+lowy
     area = xvalue*yvalue
     result = area*ratio
     return result, topx,topy,botx,boty
@@ -95,3 +94,14 @@ plt.title("Distrubition of Values for Integral of sin(x)")
 plt.ylim(-1,1)
 #plt.xlim(-2*np.pi, 2*np.pi)
 plt.show()
+
+#Here when looking at the calculated value from my function compared to the analytical value,
+#my result is smaller by a couple orders of magnitude. It is close,but not quite there. I do not
+#believe the function will be able to accurately calculate the integral of sin(x) from 0 to 10.
+#With one million iterations alreasy, I do not know how feasible this method would be to precisely 
+#calculate the value. It is a good estimation though. But, the variation of the results for several runs,
+#create too much uncertainity. 
+
+
+#Now create a new function to calculate the integral of. 
+

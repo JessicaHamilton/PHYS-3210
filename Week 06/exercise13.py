@@ -39,7 +39,7 @@ def Probint(N, initial, final, limit):
 
 
 test1, topx,topy,botx,boty = Probint(1000000, 0, 10, 100)
-print("The estimated value is:", test1)
+print("The estimated value for (x**2) is:", test1)
 plt.scatter(topx, topy, s=2, color = 'green')
 plt.scatter(botx, boty, s=2, color = 'blue')
 plt.title("Distrubition of values for Integral of X**2")
@@ -87,12 +87,11 @@ def Probint2(N, initial, final, up_limit, down_limit):
     return result, topx,topy,botx,boty
 
 test2, toppx, toppy, bottx, botty = Probint2(1000000, -2*np.pi, 2*np.pi, 1, -1)
-print("The estimated value is:", test2)
+print("The estimated value for sin(x) is:", test2)
 plt.scatter(toppx, toppy, s=2, color = 'purple')
 plt.scatter(bottx, botty, s=2, color = 'pink')
 plt.title("Distrubition of Values for Integral of sin(x)")
 plt.ylim(-1,1)
-#plt.xlim(-2*np.pi, 2*np.pi)
 plt.show()
 
 #Here when looking at the calculated value from my function compared to the analytical value,
@@ -100,8 +99,39 @@ plt.show()
 #believe the function will be able to accurately calculate the integral of sin(x) from 0 to 10.
 #With one million iterations alreasy, I do not know how feasible this method would be to precisely 
 #calculate the value. It is a good estimation though. But, the variation of the results for several runs,
-#create too much uncertainity. 
+#creates too much uncertainity. Some of the results are outside of pershaps two dtandard deviations.
 
 
 #Now create a new function to calculate the integral of. 
+def Probint3(N, initial, final, up_limit):
+    topx = []
+    topy = []
+    botx = []
+    boty = []
+    N_out = N
+    for n in range(N):
+        x = rand.uniform(initial,final)
+        y = rand.uniform(initial,up_limit)
+        y2 = np.exp(x**3)+ (2*x**2)+3
+        if (y < y2) and (y >= 0) or (y > y2) and (y <= 0):
+            topx.append(x)
+            topy.append(y)
+            N_out = N - 2
+        else:
+            botx.append(x)
+            boty.append(y)
+    tot_top = len(topy)
+    tot_bot = len(botx)
+    ratio = N/N_out
+    area = up_limit*tot_bot
+    #area = xvalue*yvalue
+    result = area*ratio
+    return result, topx,topy,botx,boty
+
+test3, tx, ty, bx, by = Probint3(1000000, -10, 10, 500)
+print("The estimated value of (e**(x**3)+ 2x**2 + 3) is:", test3)
+plt.scatter(tx, ty, s=2, color = 'pink')
+plt.scatter(bx, by, s=2, color = 'blue')
+plt.title("Distrubition of Values for Integral of (e**(x**3)+2x**2+3)")
+plt.show()
 

@@ -9,23 +9,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-#Define all variables
+#Define all known variables
 W1 = 10
 W2 = 20
 L1 = 3
 L2 = 4
 L3 = 4
 L = 8
-
-x1 = 0
-x2 = 0
-x3 = 0
-x4 = 0
-x5 = 0
-x6 = 0
-x7 = 0
-x8 = 0
-x9 = 0
 
 y1 = L
 y2 = 0 
@@ -39,29 +29,60 @@ y8 = 0
 y9 = 0 
 
 
+#unknow variables and the initial guesses
+th1=30
+th2=15
+th3=50
+T1=1
+T2=1
+T3=1 
+
+
+#Variables for functions
+a = np.sin(th1)
+b = np.sin(th2)
+c = np.sin(th3)
+d = np.cos(th1)
+e = np.cos(th2)
+f = np.cos(th3)
+
+
+
 #define functions 
-y1 = L1*(np.cos(th1)) + L2*(np.cos(th2)) + L3*(np.cos(th3))
-y2 = L1*(np.sin(th1)) + L2*(np.sin(th2)) + L3*(np.sin(th3))
-y3 = np.sin(th1)**2 + np.cos(th1)**2
-y4 = np.sin(th2) + np.cos(th2)**2
-y5 = np.sin(th3)**2 + np.cos(th3)**2
-y6 = T1*(np.sin(th1)) - T2*(np.sin(th2)) - W1
-y7 = T1*(np.cos(th1)) - T2*(np.cos(th2))
-y8 = T2*(np.sin(th1)) + T3*(np.sin(th3)) - W2
-y9 = T2*(np.cos(th2)) + T3*(np.cos(th3)) 
+y1 = L1*d + L2*e + L3*f
+y2 = L1*a + L2*b + L3*c
+y3 = a**2 + d**2
+y4 = b**2 + e**2
+y5 = c**2 + f**2
+y6 = T1*a - T2*b - W1
+y7 = T1*d - T2*e
+y8 = T2*a + T3*c - W2
+y9 = T2*e + T3*f
 
 #find the partials for the functions per y
 yy1 = 0 + 0 + 0 + L1 + L2 + L3 + 0 + 0 + 0 
 yy2 = L1 + L2 + L3 + 0 + 0 + 0 + 0 + 0 + 0
-yy3 = 2sin(th1) + 2cos(th1) + 0 + 0 + 0 + 0 + 0 + 0 + 0
-yy4 = 2sin(th2) + 2cos(th2) + 0 + 0 + 0 + 0 + 0 + 0 + 0
-yy5 = 2sin(th3) + 2cos(th3) + 0 + 0 + 0 + 0 + 0 + 0 + 0
-yy6 = T1 - T2 +0 + 0 + 0 + 0 + sin(th1) - sin(th2)
-yy7 = 0 + 0 + 0 + T1 - T2 + 0 + cos(th1) - cos(th2) + 0
-yy8 = 0 + T2 + T3 + 0 + 0 + 0 + sin(th3) + sin(th3) + 0
-yy9 = 0 + 0 + 0 + 0 + T2 - T3 + 0 + cos(th2) - cos(th3)
+yy3 = 2*a + 2*d + 0 + 0 + 0 + 0 + 0 + 0 + 0
+yy4 = 2*b + 2*e + 0 + 0 + 0 + 0 + 0 + 0 + 0
+yy5 = 2*c + 2*f + 0 + 0 + 0 + 0 + 0 + 0 + 0
+yy6 = T1 - T2 +0 + 0 + 0 + 0 + a - d
+yy7 = 0 + 0 + 0 + T1 - T2 + 0 + d - e + 0
+yy8 = 0 + T2 + T3 + 0 + 0 + 0 + b + c + 0
+yy9 = 0 + 0 + 0 + 0 + T2 - T3 + 0 + e - f
 
-print(yy1,yy2,yy3,yy4,yy5,yy6,yy7,yy8,yy9)
+#print(yy1,yy2,yy3,yy4,yy5,yy6,yy7,yy8,yy9)
+
+jac = [[L1 + L2 + L3][L1+L2+L3][2*a+2*d][2*b+2*e][T1-T2+a-d][T1-T2+d-e][T2+T3+b+c][T2-T3+e-f]]
+
+
+
+
+
+
+
+
+
+
 
 
 

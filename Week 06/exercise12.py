@@ -61,10 +61,12 @@ for val in range(10000):
     new1 = meanvalue_Int(100,0,10)
     tot_array.append(new1)
 ave_answer = np.mean(new1)
-print("This is the average value for 500 runs:", ave_answer)
+print("This is the average value for 10000 runs:", ave_answer)
 #When changing the iterations, if the value of iterations were too small, the result was too large, if the value
 #of N was too big, the result was too small. For me, about 100 was good.
 #This method of determining the integral seems faster in computing. The code does take a second,
 #but it is far better than I expected.
 
- 
+#Testing extra dimensions
+new = meanvalue_Int(100,0,20)
+print("New result:", new)

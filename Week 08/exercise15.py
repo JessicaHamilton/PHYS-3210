@@ -66,7 +66,7 @@ plt.show()
 def funct2(Eb):
     return ((np.sqrt(Eb)*(1/np.tan(np.sqrt(10-Eb))))-(np.sqrt(10-Eb)))
 
-guess3 =optimize.bisect(funct2, 8,9)
+guess3 = optimize.bisect(funct2, 8,9)
 guess4 = optimize.newton(funct2, x0)
 print("Guess for the Bisection and Newton/Raphson methods for equation two:", guess3, guess4)
 
@@ -88,6 +88,7 @@ y6 = (np.sqrt(Eb)*(1/np.tan(np.sqrt(30-Eb))))-(np.sqrt(30-Eb))
 plt.plot(Eb,y5)
 plt.plot(Eb, y6)
 plt.title("Functions with binding potential of 30")
+plt.xlim(5,10)
 plt.grid()
 plt.show()
 
@@ -97,7 +98,36 @@ plt.show()
 
 
 #Now to find the roots for each new value
+def funct3(Eb):
+    return (np.sqrt(20 - Eb)*np.tan(np.sqrt(20-Eb)) - np.sqrt(Eb)) 
 #redo functions then use methods to find roots to compare
+def funct4(Eb):
+    return (np.sqrt(30 - Eb)*np.tan(np.sqrt(30-Eb)) - np.sqrt(Eb))
+
+x1 = 6
+guess5 = optimize.bisect(funct3,5,7)
+guess6 = optimize.newton(funct3, x1)
+print("Guess for bisection and Newton Methods with binding potential set to 20:", guess5, guess6)
+
+guess7 = optimize.bisect(funct4,8,15)
+guess8 = optimize.newton(funct4, x0)
+print("Guess for bisection and Newton Methods with binding potential set to 30:", guess5, guess6)
+test3 = funct3(guess5)
+test4 = funct3(guess6)
+test5 = funct4(guess7)
+test6 = funct4(guess8)
+print("The y values for the function with binding potential of 20:", test3, test4)
+print("The y values for the function with binding potential of 30:", test5, test6)
+
+
+#When looking at the root values for the function with the two different binding potentials,
+#it seems the binding potential at 30 is more unrealistic and the values of the root does not make
+#too much sense. I would say the best binding potential would be between 10 and 20. The values for
+#for the function are very close again, this time to the 10*-10. WHen looking at the values for f(Eb),
+#the bisection method seems to be better for the binding potential set to 20, since it is positive.
+#the function with binding potential set to 30 seems to be fairly off due to the fact that the 
+#f(Eb) values are both negative for both methods. With that being said over all (All functions) the Newton/Raphson
+#method seems to be more precise. 
 
 
 

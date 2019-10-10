@@ -16,15 +16,15 @@ L1 = 3
 L2 = 4
 L3 = 4
 L = 8
-sth1 = 0.500
-sth2 = 0.2588
-sth3 = 0.7071
-cth1 = 0.8660
-cth2 = 0.9659
-cth3 = 0.7971
-T1 = 5
-T2 = 5
-T3 = 5 
+sth1 = 0.1
+sth2 = 5
+sth3 = 1
+cth1 = 0
+cth2 = 5
+cth3 = 1
+T1 = 6
+T2 = 2
+T3 = 14 
 
 
 #define functions and calculate initial function values
@@ -39,7 +39,7 @@ y8 = T2*sth2 + T3*sth3 - W2
 y9 = T2*cth2 + T3*cth3
 
 f_vector = np.array([[y1],[y2],[y3],[y4],[y5],[y6],[y7],[y8],[y9]])
-print(f_vector)
+#print(f_vector)
 #find the partials for the functions per y
 yy1 = 0 + 0 + 0 + L1 + L2 + L3 + 0 + 0 + 0 
 yy2 = L1 + L2 + L3 + 0 + 0 + 0 + 0 + 0 + 0
@@ -52,25 +52,24 @@ yy8 = 0 + T2 + T3 + 0 + 0 + 0 + sth2 + sth3 + 0
 yy9 = 0 + 0 + 0 + 0 + T2 - T3 + 0 + cth2 - cth3
 
 jac = np.array([[yy1],[yy2],[yy3],[yy4],[yy5],[yy6],[yy7],[yy8],[yy9]])
-print(jac)
+#print(jac)
 inv_jac = 1 / jac
-print(inv_jac)
+#print(inv_jac)
 
 #Start iteration for determining values
 for n in range(20):
     #calculate dx
     dx = np.negative(inv_jac)*f_vector
-    break
     #update guesses with dx
-    sth1 = sth1 + dx
-    sth2 = sth2 + dx
-    sth3 = sth3 + dx
-    cth1 = cth1 + dx
-    cth2 = cth2 + dx
-    cth3 = cth3 + dx
-    T1 = T1 + dx
-    T2 = T2 + dx
-    T3 = T3 + dx
+    sth1 = sth1 + dx[0]
+    sth2 = sth2 + dx[1]
+    sth3 = sth3 + dx[2]
+    cth1 = cth1 + dx[3]
+    cth2 = cth2 + dx[4]
+    cth3 = cth3 + dx[5]
+    T1 = T1 + dx[6]
+    T2 = T2 + dx[7]
+    T3 = T3 + dx[8]
     #update function values 
     y1 = L1*cth1 + L2*cth2 + L3*cth3
     y2 = L1*sth1 + L2*sth2 + L3*sth3
@@ -83,18 +82,36 @@ for n in range(20):
     y9 = T2*cth2 + T3*cth3
     #redefine f_vector
     f_vector = np.array([[y1],[y2],[y3],[y4],[y5],[y6],[y7],[y8],[y9]])
-    print(f_vector)
+    nummm = 10e-6
+    nummm = np.int(nummm)
+    if dx.any(nummm):
+        break
+    
     #set condition to exit for loop
-    for d in range(0, len(dx)):
-        if d <= 10e-6:
-            break
-print(T1,T2,T3,sth1,sth2,sth3,cth1,cth2,cth3)
+    #for d in range(0, len(dx)):
+        #if d <= 10e-6:
+            #break
+#print(T1,T2,T3,sth1,sth2,sth3,cth1,cth2,cth3)
+th1 = np.arctan(sth1/cth1)
+th2 = np.arctan(sth2/cth2)
+th3 = np.arctan(sth3/cth3)
+th11 = th1*(180/np.pi)
+th22 = th2*(180/np.pi)
+th33 = th3*(180/np.pi)
+print("These are the respective angles:", th11,th22, th33)
+print("These are the tension values:",T1,T2,T3)
 
+#Looking at the values for the tensions and the angles, they do seems reasonable with the
+#given initial guesses. The tensions are positive, the angles with respect to the x-axis,
+#seem reasonable. A sketch will be included for the write up. Looking at the sketch, it
+#seems reasonable for values. 
 
+#When Using values that are either 1 or 0 for the tensions or angles will break things and make
+#unrealistic. But the values that are around what I initially guess from looking at the given example
+#and actually computing values of rasonable angles, it seems to stay reasonable. Extreme values do not to well.
+#Larger tension values tend to predict tension values that are negative. 
 
-
-
-
+#Now to test for a variety of values to find dependancy, and plot them.....step 6
 
 
           

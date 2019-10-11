@@ -130,18 +130,19 @@ print("The y values for the function with binding potential of 30:", test5, test
 #method seems to be more precise. 
 
 
+#Now to try another method to find the roots and test the precision
+#Lets use Ridder's method and compare to the others:
+guesses = optimize.ridder(funct,8,9)
+print("This is the guess for the Ridder Method:", guesses)
+print("again the bisection and Newtons/Raphson:", guess, newguess)
 
+#Now to check the precision of all three together
+test9 = funct(guesses)
+print("Respective precisions for Bisection, Newton/Raphson, Ridder:", test1,test2,test9)
 
-"""
-set1_array = []
-set2_array = []
-for n in range(50):
-    set1 = optimize.bisect(funct, 8,9)
-    set1_array.append(set1)
-    set2 = optimize.newton(funct,x0)
-    set2_array.append(set2)
-print(set2_array)
-print(set1_array)
-plt.scatter(set1_array,set2_array)
-plt.show()
-"""
+#It seems the precision for the bisection and the ridder are on the same scale and the precision for the 
+#Newton/Raphson is better. This makes sense with the similarities between the bisection method and the 
+#ridder method. But the ridder tends to run faster than the bisection. This method uses the false position method
+#a trial and error method but tends to have a better constraint on the tolarance. This method also determines that
+#convergance is guarunteed such as the bisection method. 
+

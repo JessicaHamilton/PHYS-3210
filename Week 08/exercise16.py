@@ -18,7 +18,7 @@ def funct1(t,m):
 
 #Define variables
 t = 0.5
-m = np.arange(-5,5,0.1)
+m = np.arange(-2,5,0.1)
 m = np.array(m)
 #calculate the y values and plot
 for each in m:
@@ -28,7 +28,7 @@ plt.grid()
 plt.title("Initial plot of function of Y_values vs. m_values")
 plt.ylabel('f(m)')
 plt.xlabel('m')
-plt.xlim(-1,2)
+#plt.xlim(-1,2)
 plt.show()
 
 
@@ -89,6 +89,20 @@ print(total_test1, total_test2)
 
 
 #According to the timestamps, it seems the bisection method. This is surprising to me
-#since this is the 
+#since this is the method that is garunteed to converge and could take extra time to
+#do so. I expected the opposite result.
 
+#Now plot the reduced m(t) compared to the reduced t. 
+m = 0.5
+t = np.arange(-2,5,0.1)
+t = np.array(t)
+#calculate the y values and plot
+for each in t:
+    y = (np.tanh(m/t) -m)
+plt.scatter(t,y, s= 2)
+plt.grid()
+plt.title("Plot of m(t) vs. time")
+plt.ylabel('m(t)')
+plt.xlabel('t')
+plt.show()
 

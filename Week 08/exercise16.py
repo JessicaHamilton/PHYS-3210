@@ -88,21 +88,48 @@ total_test2 = (sec_final - sec_initial)
 print(total_test1, total_test2)
 
 
-#According to the timestamps, it seems the bisection method. This is surprising to me
+#According to the timestamps, it seems the bisection method is faster. This is surprising to me
 #since this is the method that is garunteed to converge and could take extra time to
 #do so. I expected the opposite result.
 
 #Now plot the reduced m(t) compared to the reduced t. 
-m = 0.5
-t = np.arange(-2,5,0.1)
-t = np.array(t)
+m = [0.5,1,2,3]
+
 #calculate the y values and plot
-for each in t:
-    y = (np.tanh(m/t) -m)
-plt.scatter(t,y, s= 2)
+for value in m:
+    t = np.arange(0,5,0.1)
+    t = np.array(t)
+    for numm in t:
+        y = (np.tanh(value/t) -value)
+    plt.scatter(t,y, s= 2)
+    plt.grid()
+    plt.title("Plot of m(t) vs. time varying time for m = 0.5,1,2,3")
+    plt.ylabel('m(t)')
+    plt.xlabel('t')
+plt.show()
+
+t = np.arange(0,5, 0.1)
+m = 1
+for temp in t:
+    y = (np.tanh(m/t)- m)
+plt.scatter(t,y, s=3)
 plt.grid()
-plt.title("Plot of m(t) vs. time")
+plt.title("Plot of m(t) vs. time varying time for m = 0.5,1,2,3")
 plt.ylabel('m(t)')
 plt.xlabel('t')
 plt.show()
 
+
+t = np.arange(0.1,10,0.1)
+for time in t:
+    m = np.arange(0,2,0.5)
+    m = np.array(m)
+    #calculate the y values and plot
+    for each in m:
+        y1 = (np.tanh(m/tt) -m)
+    plt.plot(m,y1)
+    plt.grid()
+    plt.title("Plot of m(t) vs. varying time (0-10)")
+    plt.ylabel('m(t)')
+    plt.xlabel('t')
+plt.show()

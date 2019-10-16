@@ -13,5 +13,5 @@ from scipy import optimize
 
 
 
-data = np.loadtxt('pi_meson_decays.dat')
+data = np.loadtxt('Users\hamil\Documents\GitHub\PHYS-3210\Week 09\pi_meson_decays.dat')
 print(data)

@@ -56,4 +56,25 @@ dist = x_array[3] - x_array[2]
 print("The FWHM:", dist)
 
 
+#My experimental values and predicted theory are in agreement for the full width half maximum. There is not
+#as much agreement for the peak positing. My peak position is slightly greater in value by about 5 points. 
+#I find this interesting. Even though the peak is off, the FWHM is actually on par.
+
+
+
+#Now use interpolate over 3 data points
+deriv = np.
+
+
+for 
+
+
+
+
+
+
+
+ 
+
+
 

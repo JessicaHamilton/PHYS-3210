@@ -63,10 +63,9 @@ print("The FWHM:", dist)
 
 
 #Now use interpolate over 3 data points
-deriv = np.
+deri = eq.deriv()
+print(deri)
 
-
-for 
 
 
 

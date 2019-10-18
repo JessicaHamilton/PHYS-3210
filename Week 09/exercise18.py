@@ -12,20 +12,26 @@ from scipy import optimize
 
 
 
-
 data = np.loadtxt('pi_meson_decays.dat')
 time = data[:,0]
 decay = data[:,1]
+print(time)
+print(decay)
 
 plt.scatter(time, decay, s=3)
 plt.title("Decay versus time")
+plt.xlabel('time')
+plt.ylabel('decays')
 plt.show()
 #Looking at the provided data table, the graph looks reasonable compared to figure 7.7 in the book.
 
 
 #Now calculate the uncertainity and replot the data with the uncertainities
-uncert = 1 / np.sqrt(len(decay))
-plt.errorbar(time,decay, yerr = uncert, linestyle = "None")
+uncert = np.sqrt(len(decay))
+decay_std = np.std(decay)
+plt.errorbar(time,decay, yerr = uncert, linestyle = "None", fmt= '.', markersize = 7)
+plt.xlabel('time')
+plt.ylabel('decays')
 plt.title("Decay versus time with uncertainities")
 plt.show()
 
@@ -33,21 +39,71 @@ plt.show()
 
 #define the function to fit the data
 N = len(decay)
-lamb = 1/ time
-y = N*np.e**(-lamb*time)
+lamb = 1 / time
+y = N*(np.exp(-lamb*time))
 def func(time, N, lamb):
-    return N*np.e**(-lamb*time)  
+    return N*(np.exp(-lamb*time))  
     
-
-curve1, curve2 = optimize.curve_fit(func, time, decay)
+sig_y = decay - uncert
+curve1, curve2 = optimize.curve_fit(func, time, decay)#, sigma=sig_y)
 print(curve1, curve2)
+fit_eq = np.poly1d(curve1)
+print("Estimated curve fit:", fit_eq)
 
-"""
 #Plot fit
 x = np.arange(0,125,1)
-y = fit_eq(x)
-plt.plot(x,y)
-plt.scatter(time,decay)
+newy = func(x, curve1[0], curve1[1])
+plt.plot(x,newy, color= 'blue')
+plt.scatter(time,decay, color = 'pink')
+plt.xlabel('time')
+plt.ylabel('decays')
 plt.title("Decay versus time with fitted model")
 plt.show()
-"""
+
+
+
+
+
+
+
+#Now use the linear equation to estimate the curve fit
+def linfunc(time, N, lamb):
+    return np.log(N) - (lamb*time)
+
+
+#normalize data for fitting and plot 
+freq = 1 / time
+plt.scatter(freq, decay, s=4)
+plt.title('Linearized decay versus time')
+plt.show()
+
+#plot with errorbars
+plt.errorbar(freq, decay, yerr = uncert, linestyle = "None", fmt= '.', markersize = 7)
+plt.xlabel('time')
+plt.ylabel('decays')
+plt.title("Decay versus time of linear model with uncertainities")
+plt.show()
+
+#estimate curve fit
+curve3, curve4 = optimize.curve_fit(linfunc, freq, decay)
+print(curve3, curve4)
+perr = np.sqrt(curve4[1,1])
+lin_eq = np.poly1d(curve3)
+print('estimated linear curve fit:', lin_eq)
+
+
+#plot data with estimated curve fit
+x2 = np.arange(0,0.25,0.01)
+liny = func(x2, curve3[0], curve3[1])
+newy = np.log(liny)
+plt.plot(x2, newy, color = 'blue')
+plt.scatter(freq, decay, color = 'pink')
+plt.xlabel('time')
+plt.ylabel('decays')
+plt.title("Decay versus time with linear fitted model")
+plt.show()
+
+
+
+
+

@@ -103,7 +103,10 @@ plt.ylabel('decays')
 plt.title("Decay versus time with linear fitted model")
 plt.show()
 
-
-
+err_y = np.log(perr)
+plt.errorbar(x2,liny, yerr = perr, linestyle = "None", fmt = '.', markersize = 7)
+plt.show()
+plt.errorbar(x2,newy, yerr=err_y, linestyle = "None", fmt = '.', markersize = 7)
+plt.show()
 
 

@@ -72,20 +72,21 @@ def linfunc(time, N, lamb):
 
 
 #normalize data for fitting and plot 
-freq = 1 / time
-plt.scatter(freq, decay, s=4)
-plt.title('Linearized decay versus time')
+denom = np.sqrt(np.sum(decay**2))
+norm_decay = decay / denom
+plt.scatter(time,norm_decay)
+plt.title('Normalize with mean')
 plt.show()
 
 #plot with errorbars
-plt.errorbar(freq, decay, yerr = uncert, linestyle = "None", fmt= '.', markersize = 7)
+plt.errorbar(freq, norm_decay, yerr = uncert, linestyle = "None", fmt= '.', markersize = 7)
 plt.xlabel('time')
 plt.ylabel('decays')
 plt.title("Decay versus time of linear model with uncertainities")
 plt.show()
 
 #estimate curve fit
-curve3, curve4 = optimize.curve_fit(linfunc, freq, decay)
+curve3, curve4 = optimize.curve_fit(linfunc, freq, norm_decay)
 print(curve3, curve4)
 perr = np.sqrt(curve4[1,1])
 lin_eq = np.poly1d(curve3)
@@ -97,16 +98,24 @@ x2 = np.arange(0,0.25,0.01)
 liny = func(x2, curve3[0], curve3[1])
 newy = np.log(liny)
 plt.plot(x2, newy, color = 'blue')
-plt.scatter(freq, decay, color = 'pink')
+plt.scatter(freq, norm_decay, color = 'pink')
 plt.xlabel('time')
 plt.ylabel('decays')
 plt.title("Decay versus time with linear fitted model")
 plt.show()
 
+
+#Plot with errorbars
 err_y = np.log(perr)
 plt.errorbar(x2,liny, yerr = perr, linestyle = "None", fmt = '.', markersize = 7)
+plt.title('Decay versus time with logged error')
 plt.show()
-plt.errorbar(x2,newy, yerr=err_y, linestyle = "None", fmt = '.', markersize = 7)
+plt.errorbar(x2,newy, yerr= err_y, linestyle = "None", fmt = '.', markersize = 7)
+plt.title('Decay versus time with calculated error')
 plt.show()
+
+#Now complete the questions for the write-up....
+
+
 
 

@@ -9,8 +9,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy
 from scipy import optimize 
+from scipy import interpolate
 from scipy.interpolate import lagrange
-
+from scipy.interpolate import interp1d
+from scipy.interpolate import CubicSpline
 
 
 e = [0,25,50,75,100,125,150,175,200]
@@ -62,7 +64,8 @@ print("The FWHM:", dist)
 
 
 
-#Now use interpolate over 3 data points
+#Now use interpolate over 3 data point sections
+#determine the 3 x and y values for each set
 e1 = [e[0], e[1], e[2]]
 g_e1 = [g_e[0], g_e[1], g_e[2]]
 
@@ -78,79 +81,94 @@ g_e4 = [g_e[3], g_e[4], g_e[5]]
 e5 = [e[4], e[5], e[6]]
 g_e5 = [g_e[4], g_e[5], g_e[6]]
 
-e6 = [e[4], e[5], e[6]]
-g_e6 = [g_e[4], g_e[5], g_e[6]]
+e6 = [e[5], e[6], e[7]]
+g_e6 = [g_e[5], g_e[6], g_e[7]]
 
+e7 = [e[6], e[7], e[8]]
+g_e7 = [g_e[6], g_e[7], g_e[8]]
+
+
+#approx the fit and determine the equation
 step1 = lagrange(e1,g_e1)
 eq1 = np.poly1d(step1)
-print(step1)
+#print(step1)
 step2 = lagrange(e2, g_e2)
 eq2 = np.poly1d(step2)
-print(step2)
+#print(step2)
 step3 = lagrange(e3, g_e3)
 eq3 = np.poly1d(step3)
-print(step3)
+#print(step3)
 step4 = lagrange(e4, g_e4)
 eq4 = np.poly1d(step4)
-print(step4)
+#print(step4)
 step5 = lagrange(e5, g_e5)
 eq5 = np.poly1d(step5)
-print(step5)
+#print(step5)
 step6 = lagrange(e6, g_e6)
 eq6 = np.poly1d(step6)
-print(step6)
+#print(step6)
+step7 = lagrange(e7, g_e7)
+eq7 = np.poly1d(step7)
+#print(step6)
 
 
 
+#use equation to create sample x and y values to plot everything
 x1 = np.arange(0,205, 5)
 y1 = eq(x1)
-x2 = np.arange(0,205, 5)
-y2 = eq2(x2)
-x3 = np.arange(0,205, 5)
-y3 = eq3(x3)
-x4 = np.arange(0,205, 5)
-y4 = eq4(x4)
-x5 = np.arange(0,205, 5)
-y5 = eq4(x5)
-x6 = np.arange(0,205, 5)
-y6 = eq4(x6)
+y2 = eq2(x1)
+y3 = eq3(x1)
+y4 = eq4(x1)
+y5 = eq5(x1)
+y6 = eq6(x1)
+y7 = eq7(x1)
 
-
-
-plt.plot(x6, y6)
-plt.plot(x5, y5)
-plt.plot(x4, y4)
-plt.plot(x3, y3)
-plt.plot(x2, y2)
-plt.plot(x1, y1)
+#Plot everything
+plt.plot(x1, y7, label = 'set-7')
+plt.plot(x1, y6, label = 'set-6')
+plt.plot(x1, y5, label = 'set-5')
+plt.plot(x1, y4, label = 'set-4')
+plt.plot(x1, y3, label = 'set-3')
+plt.plot(x1, y2, label = 'set-2')
+plt.plot(x1, y1, label = 'set-1')
 plt.scatter(e,g_e)
+plt.title("All Lagrange Interpolations for groups of 3")
+plt.legend()
+plt.show()
 
 
+#Looking at the first set closer:
+plt.plot(x1, y1, label = 'set-1')
+plt.scatter(e,g_e)
+plt.title('Lagrange Interpolation of first set of 3 points')
+plt.show()
 
-"""
-def three_lagr(e,g_e):
-    a = 0
-    b = 1
-    c = 2
-    total_eq = []
-    for n in range(7):
-        new_e = [e[a], e[b], e[c]]
-        new_g = [g_e[a], g_e[b], g_e[c]]
-        step = lagrange(new_e, new_g)
-        #print('Coeffs for lagrange interpolation', step.coeffs)
-        eq1 = np.poly1d(step)
-        print(np.poly1d(step))
-        total_eq.append(step)
-        a = a + 1
-        b = b + 1
-        c = c + 1
-        if c > len(e):
-            return total_e
+#Try a 1d linear interpolation and a 1d cubic spline
+answer2 = interp1d(e, g_e, kind= 'linear')
+answer3 = CubicSpline(e,g_e)
+lin_y = answer2(x1)
+cubic_y = answer3(x1)
 
 
-test1 = three_lagr(e,g_e)
-print(test1)
-"""
+plt.plot(x1, lin_y)
+plt.scatter(e, g_e)
+plt.title('Linear 1D Interpolation')
+plt.show()
+
+plt.plot(x1,cubic_y)
+plt.scatter(e, g_e)
+plt.title('Cubic Spline Interpolation')
+plt.show()
+
+#When looking at each graph for the different types of interpolation, it seems the cubic spline
+#is providing the best fit curve for the data provided that goes through each of the points.
+#When stepping through the dataset every three points, the first set provides the best curvefit when is
+#comparable to the lagrange interpolation. Both the lagrange interpolation and the first set fit the data,
+#but has issues with the end points. When viewing the different sets of 3, each one is fitting for the particular
+#set of points, and therefore, if combined, would probably look like the first set, pretty close, but still off 
+#a bit. The linear 1-D interpolation, also fit the data well, from point ot point, but it is pretty severe
+#and most likely not like the actual function. The Cubic spline is the better curved version of the linear 1-
+#version so to speak. It hits all the points, but is continuous.
 
 
  

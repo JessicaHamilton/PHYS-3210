@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy 
 from scipy import optimize
-
+from scipy import stats
 
 
 data = np.loadtxt('pi_meson_decays.dat')
@@ -76,17 +76,19 @@ denom = np.sqrt(np.sum(decay**2))
 norm_decay = decay / denom
 plt.scatter(time,norm_decay)
 plt.title('Normalize with mean')
+plt.xlabel('Time')
+plt.ylabel('Normalized Decays')
 plt.show()
 
 #plot with errorbars
-plt.errorbar(freq, norm_decay, yerr = uncert, linestyle = "None", fmt= '.', markersize = 7)
+plt.errorbar(time, norm_decay, yerr = uncert, linestyle = "None", fmt= '.', markersize = 7)
 plt.xlabel('time')
 plt.ylabel('decays')
 plt.title("Decay versus time of linear model with uncertainities")
 plt.show()
 
 #estimate curve fit
-curve3, curve4 = optimize.curve_fit(linfunc, freq, norm_decay)
+curve3, curve4 = optimize.curve_fit(linfunc, time, norm_decay)
 print(curve3, curve4)
 perr = np.sqrt(curve4[1,1])
 lin_eq = np.poly1d(curve3)
@@ -98,21 +100,41 @@ x2 = np.arange(0,0.25,0.01)
 liny = func(x2, curve3[0], curve3[1])
 newy = np.log(liny)
 plt.plot(x2, newy, color = 'blue')
-plt.scatter(freq, norm_decay, color = 'pink')
+plt.scatter(time, norm_decay, color = 'pink')
 plt.xlabel('time')
 plt.ylabel('decays')
 plt.title("Decay versus time with linear fitted model")
 plt.show()
-
-
 #Plot with errorbars
-err_y = np.log(perr)
-plt.errorbar(x2,liny, yerr = perr, linestyle = "None", fmt = '.', markersize = 7)
-plt.title('Decay versus time with logged error')
-plt.show()
 plt.errorbar(x2,newy, yerr= err_y, linestyle = "None", fmt = '.', markersize = 7)
 plt.title('Decay versus time with calculated error')
+plt.xlabel('Time')
+plt.ylabel('Normalized Decays')
 plt.show()
+
+
+#Maybe do another curve fit option
+slope, interc, r_value, p_value, std_dev = stats.linregress(time, decay)
+print(slope, interc)
+combined = np.poly1d([slope,interc])
+yyy = combined(x)
+
+#Plot each way
+plt.plot(x,yyy, color='purple')
+plt.scatter(time,decay, s=10, color = 'pink')
+plt.title("linear Regression Model")
+plt.xlabel('Time')
+plt.ylabel('Linearized Decays')
+plt.show()
+#with error bars
+plt.errorbar(x,yyy, yerr=std_dev,linestyle = "None", fmt = '.', markersize = 4)
+plt.scatter(time,decay, s=10, color = 'pink')
+plt.title('Linear Regression with errorbars')
+plt.xlabel('Time')
+plt.ylabel('Linearized Decays')
+plt.show()
+
+
 
 #Now complete the questions for the write-up....
 

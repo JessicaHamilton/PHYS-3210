@@ -83,9 +83,11 @@ for point in P_array:
     plt.title('Motion of Oscillator, varying power with initial position and initial velocity')
 
 #When varying the power, the functions still oscillate. The shape of the functions change as you change the
-#constants, specifically the initial position and the velocity
+#constants, specifically the initial position and the velocity.
 
 #For the motion of the particle, it will reach max velocity when it passes through the equilibrium position (x=0)
 #This is what I would expect when looking at the slope of the position function. The greatest slope is at
-#that point.
+#that point. When you view the change in power graph, this shows a change in amplitude in correlation with the 
+#change in period. If you increase the period, the amplitude will decrease. The two are inversely proportional, 
+#which makes sense. 
 

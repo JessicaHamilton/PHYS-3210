@@ -45,7 +45,7 @@ def func(time, N, lamb):
     return N*(np.exp(-lamb*time))  
     
 sig_y = decay - uncert
-curve1, curve2 = optimize.curve_fit(func, time, decay)#, sigma=sig_y)
+curve1, curve2 = optimize.curve_fit(func, time, decay)
 print(curve1, curve2)
 fit_eq = np.poly1d(curve1)
 print("Estimated curve fit:", fit_eq)
@@ -106,16 +106,17 @@ plt.ylabel('decays')
 plt.title("Decay versus time with linear fitted model")
 plt.show()
 #Plot with errorbars
-plt.errorbar(x2,newy, yerr= err_y, linestyle = "None", fmt = '.', markersize = 7)
+plt.errorbar(x2,newy, yerr= uncert, linestyle = "None", fmt = '.', markersize = 7)
 plt.title('Decay versus time with calculated error')
 plt.xlabel('Time')
 plt.ylabel('Normalized Decays')
 plt.show()
 
 
-#Maybe do another curve fit option
+#Do another curve fit option
 slope, interc, r_value, p_value, std_dev = stats.linregress(time, decay)
-print(slope, interc)
+print("Estimated Linear regression fit", slope, interc)
+print('Estimated error:', std_dev)
 combined = np.poly1d([slope,interc])
 yyy = combined(x)
 
@@ -136,7 +137,7 @@ plt.show()
 
 
 
-#Now complete the questions for the write-up....
+
 
 
 

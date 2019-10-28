@@ -22,20 +22,20 @@ def rkfunc(x_int, v_int, h, P):
     time = np.arange(0,10, 0.0001)
     for t in time:
         #calculate half steps
-        N1 = -(m*g)
+        N1 = (m*g)
         vmag1 = abs(vnew)
         f_static1 = mu*N1
         f_kin1 = mu*N1*(vnew/vmag1)
         a_f1 = -k*(h/2)*(xnew**(P-1))
-        v_half = vnew + (-f_static1 - f_kin1 + (a_f1))/m
+        v_half = vnew + (f_static1 + f_kin1 + (a_f1))/m
         x_half = xnew + vnew*(h/2)
         #update x and v values
-        N2 = -(m*g)
+        N2 = (m*g)
         vmag2 = abs(v_half)
         f_static2 = mu*N2
         f_kin2 = mu*N2*(v_half/vmag2)
         a_f2 = -k*(h/2)*(x_half**(P-1))
-        vnew = vnew + (-f_static2 - f_kin2 + (a_f2)/m)
+        vnew = vnew + ((a_f2) + -f_kin2 + -f_static2)/m
         xnew = xnew + h*(v_half)
         #append to arrays
         v_array.append(vnew)
@@ -54,5 +54,7 @@ def rkfunc(x_int, v_int, h, P):
 test1, test11, test111 = rkfunc(0, 0.01, 0.0001, 2)
 plt.plot(test11, test111)
 plt.title('Position vs. time')
+plt.xlabel('Position')
+plt.ylabel('time')
 plt.show()
 

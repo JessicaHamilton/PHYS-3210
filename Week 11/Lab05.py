@@ -19,23 +19,22 @@ def rkfunc(x_int, v_int, h, P):
     #create initial steps
     xnew = x_int
     vnew = v_int
-    time = np.arange(0,10, 0.0001)
+    time = np.arange(0,15, 0.0001)
     for t in time:
         #calculate half steps
-        N1 = (m*g)
+        N1 = -(m*g)
         vmag1 = abs(vnew)
         f_static1 = mu*N1
         f_kin1 = mu*N1*(vnew/vmag1)
-        a_f1 = -k*(h/2)*(xnew**(P-1))
-        v_half = vnew + (f_static1 + f_kin1 + (a_f1))/m
+        f_rest = -k*(h/2)*(xnew**(P-1))
+        v_half = vnew + (f_static1 + f_kin1 + f_rest)/m
         x_half = xnew + vnew*(h/2)
         #update x and v values
-        N2 = (m*g)
         vmag2 = abs(v_half)
-        f_static2 = mu*N2
-        f_kin2 = mu*N2*(v_half/vmag2)
-        a_f2 = -k*(h/2)*(x_half**(P-1))
-        vnew = vnew + ((a_f2) + -f_kin2 + -f_static2)/m
+        f_static2 = mu*N1
+        f_kin2 = mu*N1*(v_half/vmag2)
+        f_rest2 = -k*(h/2)*(x_half**(P-1))
+        vnew = vnew + (f_static2 + f_kin2 + f_rest2)/m
         xnew = xnew + h*(v_half)
         #append to arrays
         v_array.append(vnew)

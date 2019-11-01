@@ -123,32 +123,126 @@ plt.ylabel('time')
 plt.show()
 
 
+def crit_func(x_int, v_int, h,P):
+    k = 20
+    m = 2
+    g = 9.8
+    x_array = []
+    v_array = []
+    
+    #create initial step
+    xnew = x_int
+    vnew = v_int
+    time = np.arange(0,10,h)
+    for t in time:
+        #update values
+        b = 2*m*(2*np.pi/t)
+        f_visc = -b*vnew
+        f_resto = -k*(xnew**(P-1))
+        if abs(vnew) < 1e-16:
+            vnew = vnew + (f_resto/m + f_visc/m)*h
+        else:
+            vnew = vnew + (f_resto/m + f_visc/m)*h
+        
+        xnew = xnew + vnew*h
+        #append to arrays
+        v_array.append(vnew)
+        x_array.append(xnew)
+    return v_array, x_array, time
+
+def overdamp_func(x_int, v_int, h,P):
+    k = 20
+    m = 2
+    g = 9.8
+    x_array = []
+    v_array = []
+    
+    #create initial step
+    xnew = x_int
+    vnew = v_int
+    time = np.arange(0,10,h)
+    for t in time:
+        #update values
+        b = 2*m*(2*np.pi/t) + 1
+        f_visc = -b*vnew
+        f_resto = -k*(xnew**(P-1))
+        if abs(vnew) < 1e-16:
+            vnew = vnew + (f_resto/m + f_visc/m)*h
+        else:
+            vnew = vnew + (f_resto/m + f_visc/m)*h
+        
+        xnew = xnew + vnew*h
+        #append to arrays
+        v_array.append(vnew)
+        x_array.append(xnew)
+    return v_array, x_array, time
+
+def underdamp_func(x_int, v_int, h,P):
+    k = 20
+    m = 2
+    g = 9.8
+    x_array = []
+    v_array = []
+    
+    #create initial step
+    xnew = x_int
+    vnew = v_int
+    time = np.arange(0,10,h)
+    for t in time:
+        #update values
+        b = 2*m*(2*np.pi/t) - 1
+        f_visc = -b*vnew
+        f_resto = -k*(xnew**(P-1))
+        if abs(vnew) < 1e-16:
+            vnew = vnew + (f_resto/m + f_visc/m)*h
+        else:
+            vnew = vnew + (f_resto/m + f_visc/m)*h
+        
+        xnew = xnew + vnew*h
+        #append to arrays
+        v_array.append(vnew)
+        x_array.append(xnew)
+    return v_array, x_array, time
 
 
+#r, rr, rrr = crit_func(1,1e-16,0.0001,2)
+#j,jj,jjj = overdamp_func(1,1e-16,0.0001,2)
+#v,vv,vvv = underdamp_func(1,1e-16,0.0001,2)
+#plt.plot(rr,rrr)
+"""
+plt.subplot(311)
+plt.plot(rr,rrr)
+plt.subplot(332)
+plt.plot(jj,jjj)
+plt.subplot(333)
+plt.plot(vv,vvv)
+plt.show()
+"""
 
 #Now to look into adding driving forces
 
-def rk_drivefunc(x_int, v_int, h, P):
-    k = 10
-    m = 2
+
+def rk_drivefunc(x_int, v_int, h, P, omega_o):
+    k = 15
+    m = 1
     g = 9.8
     mu_s = 0.1
     mu_k = 0.1
-    omega = 1
-    f_o = 5
+    f_o = 15
     x_array = []
     v_array = []
+    freq_diff_array = []
     #create initial steps
     xnew = x_int
     vnew = v_int
-    time = np.arange(0,10, h)
+    time = np.arange(0,25,h)
     for t in time:
         #define forces and variables:
         vmag1 = abs(vnew)
         f_static1 = -mu_s*m*g
         f_kin1 = -mu_k*m*g*(vnew/vmag1)
         f_resto = -k*(xnew**(P-1))
-        f_drive = f_o*np.sin(omega*(h/2))
+        f_drive = f_o*np.sin(omega_o*(t))
         
         #calculate half steps
         v_half = vnew + (f_resto/m + f_drive/m)*(h/2)
@@ -159,26 +253,22 @@ def rk_drivefunc(x_int, v_int, h, P):
         f_static2 = -mu_s*g*m
         f_kin2 = -mu_k*g*m*(v_half/vmag2)
         f_resto2 = -k*(x_half**(P-1))
-        f_drive = f_o*np.sin(omega*(h))
-        
+        f_drive = f_o*np.sin(omega_o*(t))
+        #calculate full steps
         vnew = vnew + (f_resto2/m + f_drive/m)*h
         xnew = xnew + (v_half)*h
         
         #append to arrays
         v_array.append(vnew)
         x_array.append(xnew)
-        """
-        if vnew == 0:
-            if f_rest > f_static:
-                continue
-            else:
-                break
-        """
-    return v_array, x_array, time
+        #freq = 1/t
+        
+    return v_array, x_array, time, freq_diff_array
 
-ww, www, wwww = rk_drivefunc(1,1e-16,0.0001,2)
-plt.plot(www, wwww)
+ww, www, wwww,wwwww = rk_drivefunc(1, 1e-16, 0.0001, 2, 1)
+plt.plot(www, wwww, label = 'P=2')
 plt.title('Position versus Time: Driving Force')
+plt.legend()
 plt.show()
 """
 plt.plot(ww, wwww)

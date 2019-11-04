@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 def rkfunc(x_int, v_int, h, P):
     k = 20
-    m = 2
+    m = 1
     g = 9.8
     mu_s = 0.1
     mu_k = 0.1
@@ -78,7 +78,7 @@ plt.show()
 
 def func(x_int, v_int, h,P):
     k = 20
-    m = 2
+    m = 1
     g = 9.8
     mu_s = 0.1
     mu_k = 0.1
@@ -125,7 +125,7 @@ plt.show()
 
 def crit_func(x_int, v_int, h,P):
     k = 20
-    m = 2
+    m = 1
     g = 9.8
     x_array = []
     v_array = []
@@ -133,10 +133,10 @@ def crit_func(x_int, v_int, h,P):
     #create initial step
     xnew = x_int
     vnew = v_int
-    time = np.arange(0,10,h)
+    time = np.arange(1,10,h)
     for t in time:
         #update values
-        b = 2*m*(2*np.pi/t)
+        b = 2*m*(np.pi/t)
         f_visc = -b*vnew
         f_resto = -k*(xnew**(P-1))
         if abs(vnew) < 1e-16:
@@ -152,7 +152,7 @@ def crit_func(x_int, v_int, h,P):
 
 def overdamp_func(x_int, v_int, h,P):
     k = 20
-    m = 2
+    m = 1
     g = 9.8
     x_array = []
     v_array = []
@@ -160,10 +160,10 @@ def overdamp_func(x_int, v_int, h,P):
     #create initial step
     xnew = x_int
     vnew = v_int
-    time = np.arange(0,10,h)
+    time = np.arange(1,10,h)
     for t in time:
         #update values
-        b = 2*m*(2*np.pi/t) + 1
+        b = 2*m*(2*np.pi/t) + 15
         f_visc = -b*vnew
         f_resto = -k*(xnew**(P-1))
         if abs(vnew) < 1e-16:
@@ -179,7 +179,7 @@ def overdamp_func(x_int, v_int, h,P):
 
 def underdamp_func(x_int, v_int, h,P):
     k = 20
-    m = 2
+    m = 1
     g = 9.8
     x_array = []
     v_array = []
@@ -187,10 +187,10 @@ def underdamp_func(x_int, v_int, h,P):
     #create initial step
     xnew = x_int
     vnew = v_int
-    time = np.arange(0,10,h)
+    time = np.arange(1,10,h)
     for t in time:
         #update values
-        b = 2*m*(2*np.pi/t) - 1
+        b = 2*m*(2*np.pi/t) - 2.5
         f_visc = -b*vnew
         f_resto = -k*(xnew**(P-1))
         if abs(vnew) < 1e-16:
@@ -205,26 +205,26 @@ def underdamp_func(x_int, v_int, h,P):
     return v_array, x_array, time
 
 
-#r, rr, rrr = crit_func(1,1e-16,0.0001,2)
-#j,jj,jjj = overdamp_func(1,1e-16,0.0001,2)
-#v,vv,vvv = underdamp_func(1,1e-16,0.0001,2)
-#plt.plot(rr,rrr)
-"""
-plt.subplot(311)
-plt.plot(rr,rrr)
-plt.subplot(332)
-plt.plot(jj,jjj)
-plt.subplot(333)
-plt.plot(vv,vvv)
-plt.show()
-"""
+r, rr, rrr = crit_func(1,1e-16,0.0001,2)
+j,jj,jjj = overdamp_func(1,1e-16,0.0001,2)
+v,vv,vvv = underdamp_func(1,1e-16,0.0001,2)
 
+plt.subplot(131)
+plt.plot(rr,rrr)
+plt.title('critically damped')
+plt.subplot(132)
+plt.plot(jj,jjj)
+plt.title('Overdamped')
+plt.subplot(133)
+plt.plot(vv,vvv)
+plt.title('Underdamped')
+plt.show()
 #Now to look into adding driving forces
 
 
 def rk_drivefunc(x_int, v_int, h, P, omega_o):
     k = 15
-    m = 1
+    m = 2
     g = 9.8
     mu_s = 0.1
     mu_k = 0.1
@@ -235,7 +235,7 @@ def rk_drivefunc(x_int, v_int, h, P, omega_o):
     #create initial steps
     xnew = x_int
     vnew = v_int
-    time = np.arange(0,25,h)
+    time = np.arange(0,50,h)
     for t in time:
         #define forces and variables:
         vmag1 = abs(vnew)
@@ -265,10 +265,9 @@ def rk_drivefunc(x_int, v_int, h, P, omega_o):
         
     return v_array, x_array, time, freq_diff_array
 
-ww, www, wwww,wwwww = rk_drivefunc(1, 1e-16, 0.0001, 2, 1)
-plt.plot(www, wwww, label = 'P=2')
+ww, www, wwww,wwwww = rk_drivefunc(1, 1e-16, 0.0001, 2, 1.5)
+plt.plot(www, wwww)
 plt.title('Position versus Time: Driving Force')
-plt.legend()
 plt.show()
 """
 plt.plot(ww, wwww)

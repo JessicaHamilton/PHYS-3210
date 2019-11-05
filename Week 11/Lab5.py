@@ -223,11 +223,9 @@ plt.show()
 
 
 def rk_drivefunc(x_int, v_int, h, P, omega_o):
-    k = 15
+    k = 10
     m = 2
     g = 9.8
-    mu_s = 0.1
-    mu_k = 0.1
     f_o = 15
     x_array = []
     v_array = []
@@ -235,23 +233,16 @@ def rk_drivefunc(x_int, v_int, h, P, omega_o):
     #create initial steps
     xnew = x_int
     vnew = v_int
-    time = np.arange(0,50,h)
+    time = np.arange(0,80,h)
     for t in time:
         #define forces and variables:
-        vmag1 = abs(vnew)
-        f_static1 = -mu_s*m*g
-        f_kin1 = -mu_k*m*g*(vnew/vmag1)
         f_resto = -k*(xnew**(P-1))
         f_drive = f_o*np.sin(omega_o*(t))
-        
         #calculate half steps
         v_half = vnew + (f_resto/m + f_drive/m)*(h/2)
         x_half = xnew + vnew*(h/2)
         
         #redefine func and update x and v values for full steps
-        vmag2 = abs(v_half)
-        f_static2 = -mu_s*g*m
-        f_kin2 = -mu_k*g*m*(v_half/vmag2)
         f_resto2 = -k*(x_half**(P-1))
         f_drive = f_o*np.sin(omega_o*(t))
         #calculate full steps
@@ -261,15 +252,90 @@ def rk_drivefunc(x_int, v_int, h, P, omega_o):
         #append to arrays
         v_array.append(vnew)
         x_array.append(xnew)
-        #freq = 1/t
+        omega = np.sqrt(k/m)
         
-    return v_array, x_array, time, freq_diff_array
+    return v_array, x_array, time, omega, omega_o
 
-ww, www, wwww,wwwww = rk_drivefunc(1, 1e-16, 0.0001, 2, 1.5)
+ww, www, wwww, wwwww, wwwwww = rk_drivefunc(1, 1e-16, 0.0001, 2, 2)
 plt.plot(www, wwww)
 plt.title('Position versus Time: Driving Force')
 plt.show()
-"""
+
 plt.plot(ww, wwww)
 plt.title('Velocity versus Time: Driving Force')
-"""
+plt.show()
+diff = wwwww - wwwwww
+beat_freq = diff / (2*np.pi)
+print('Beat Frequency:', beat_freq)
+
+#Now to vary the freq of the driving force from w_o/10 to 10*w_o
+amp_array = []
+n_array = []
+for n in range(10):
+    d,dd,ddd,dddd,ddddd = rk_drivefunc(1,1e-16,0.001,2,2*n)
+    n_array.append(2*n)
+    x_max = np.max(dd)
+    amp_array.append(x_max)
+    
+plt.plot(n_array, amp_array)
+plt.title('Amplitude versus Driving Frequency')
+plt.xlabel('Driving Omega')
+plt.ylabel('Amplitude')
+plt.show()
+        
+#explore what occurs when a nonlinear sys resonates...
+
+#Add in viscous friction and check the amplitude vs. driver freq again
+def crit_drivefunc(x_int, v_int, h,P,omega_o):
+    k = 20
+    m = 2
+    g = 9.8
+    x_array = []
+    v_array = []
+    f_o = 15 
+    #create initial step
+    xnew = x_int
+    vnew = v_int
+    time = np.arange(1,10,h)
+    for t in time:
+        #update values
+        b = 2*m*(np.pi/t)
+        f_visc = -b*vnew
+        f_resto = -k*(xnew**(P-1))
+        f_drive = f_o*np.sin(omega_o*(t))
+        if abs(vnew) < 1e-16:
+            vnew = vnew + (f_resto/m + f_visc/m + f_drive/m)*h
+        else:
+            vnew = vnew + (f_resto/m + f_visc/m + f_drive/m)*h
+        
+        xnew = xnew + vnew*h
+        #append to arrays
+        v_array.append(vnew)
+        x_array.append(xnew)
+    return v_array, x_array, time
+
+amp_array = []
+n_array = []
+for n in range(10):
+    g,gg,ggg = crit_drivefunc(1,1e-16,0.001,2,2*n)
+    n_array.append(2*n)
+    x_max = np.max(gg)
+    amp_array.append(x_max)
+
+
+plt.plot(n_array, amp_array)
+plt.title('Amplitude versus Driving Frequency with Friction')
+plt.xlabel('Driving Omega')
+plt.ylabel('Amplitude')
+plt.show()
+
+#now vary p with the driving force
+p_array = np.arange(2,12,2)
+for p in p_array:
+    h,hh,hhh,hhhh,hhhhh = rk_drivefunc(1,1e-16,0.0001,p,2)
+    plt.plot(hh,hhh)
+    plt.title('Position versus Time varying P')
+    
+
+
+

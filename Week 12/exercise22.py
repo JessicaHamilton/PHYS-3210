@@ -11,23 +11,25 @@ import matplotlib.pyplot as plt
 
 
 
-#Outside of boundaries
-#from left
-E = -10
-kappa = 2*m*E/ 1.112e-68
-m=9.11e-31
+#define variables
+E = -3
+kappa = np.sqrt(2*m*E/ 1.112e-68)
+m = 9.11e-31
+m = 1
+#a = 2
 a = 2e-15
 x_match = a
-dx=0.0001
+dx = 0.0001
 V_o = -83.0 
 dp = 0
-p=0
+p = 0
 g = -0.0483
 dp_array1 = []
 p_array1 = []
 dp_array2 = []
 p_array2 = []
 
+#define functions to use
 def psi(x):
     return np.exp(-kappa*abs(x))
 def d_psi(x):
@@ -38,6 +40,8 @@ def d_2psi(x):
 def d_2psi_in(x):
     return (V*g + kappa**2)*psi(x)
 
+
+#create arrays and iterate over functions
 x_array1 = np.arange(-5,x_match, dx)
 x_array2 = np.arange(x_match, 5, -dx)
 

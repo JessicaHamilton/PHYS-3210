@@ -12,11 +12,9 @@ import matplotlib.pyplot as plt
 
 
 #define variables
-E = -3
-kappa = np.sqrt(2*m*E/ 1.112e-68)
+E = -300
 m = 9.11e-31
-m = 1
-#a = 2
+kappa = np.sqrt(2*m*E/ 1.112e-68)
 a = 2e-15
 x_match = a
 dx = 0.0001
@@ -73,9 +71,9 @@ plt.plot(x_array1, p_array1)
 plt.plot(x_array2, p_array2)
 plt.show()
 
-#plt.plot(x_array1, dp_array1)
-#plt.plot(x_array2, dp_array2)
-#plt.show()
+plt.plot(x_array1, dp_array1)
+plt.plot(x_array2, dp_array2)
+plt.show()
 
 
 

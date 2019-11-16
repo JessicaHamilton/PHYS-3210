@@ -211,7 +211,7 @@ v,vv,vvv = underdamp_func(1,1e-16,0.0001,2)
 
 plt.subplot(131)
 plt.plot(rr,rrr)
-plt.title('critically damped')
+plt.title('Critically damped')
 plt.subplot(132)
 plt.plot(jj,jjj)
 plt.title('Overdamped')
@@ -330,7 +330,7 @@ plt.ylabel('Amplitude')
 plt.show()
 
 #now vary p with the driving force
-p_array = np.arange(2,12,2)
+p_array = np.arange(2,8,2)
 for p in p_array:
     h,hh,hhh,hhhh,hhhhh = rk_drivefunc(1,1e-16,0.0001,p,2)
     plt.plot(hh,hhh)

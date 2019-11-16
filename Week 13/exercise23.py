@@ -12,14 +12,14 @@ from mpl_toolkits.mplot3d import Axes3D
 
 #define variables
 m = 0.1
-next_x = 0.10
-next_y = 0.10
+next_x = -0.25
+next_y = .15
 b = np.sqrt(next_x**2+ next_y**2)
-next_vx = 0.01
+next_vx = 0.001
 next_vy = 0.1
 h = 0.0001
 
-
+#best values thus far: x=-0.25, y=0.15, vx=0.001, vy=0.1
 
 #Define array
 x_arr = []
@@ -27,7 +27,7 @@ y_arr = []
 vx_arr = []
 vy_arr = []
 pot_arr = []
-
+count = 0
 #begin loop
 time = np.arange(0,200,h)
 for t in time:
@@ -46,28 +46,22 @@ for t in time:
         poten = (next_x**2*next_y**2)*np.exp(-1*(next_x**2+next_y**2))
         pot_arr.append(poten)
         
+        
         #append new values
         x_arr.append(next_x)
         y_arr.append(next_y)
         vx_arr.append(next_vx)
         vy_arr.append(next_vy)
-        #theta = np.arctan(next_vy/next_vx)
+        
     else:
         break
 
-print(pot_arr)
-ax.contourf((x_arr, y_arr), pot_arr, 10, cmap='Oranges')
-plt.show()
+#print(pot_arr)
+#ax.contourf((x_arr, y_arr), pot_arr, 10, cmap='Oranges')
+#plt.show()
 
 
 
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-ax.plot(x_arr,y_arr, time)
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Time')
-plt.show()
 
 """
 plt.plot(time, x_arr)
@@ -93,4 +87,11 @@ plt.plot(vy_arr, y_arr)
 plt.title('Velocity-Y vs. Position-Y')
 plt.show()
 
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.plot(x_arr,y_arr, time)
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Time')
+plt.show()
 

@@ -12,11 +12,11 @@ from mpl_toolkits.mplot3d import Axes3D
 
 #define variables
 m = 0.1
-next_x = 0.12
-next_y = 0.12
+next_x = 0.10
+next_y = 0.10
 b = np.sqrt(next_x**2+ next_y**2)
-next_vx = 0
-next_vy = 0.05
+next_vx = 0.01
+next_vy = 0.1
 h = 0.0001
 
 
@@ -29,7 +29,7 @@ vy_arr = []
 pot_arr = []
 
 #begin loop
-time = np.arange(0,100,h)
+time = np.arange(0,200,h)
 for t in time:
     if b < 0.95:
         #define functions
@@ -45,6 +45,7 @@ for t in time:
         #Potential func
         poten = (next_x**2*next_y**2)*np.exp(-1*(next_x**2+next_y**2))
         pot_arr.append(poten)
+        
         #append new values
         x_arr.append(next_x)
         y_arr.append(next_y)
@@ -53,6 +54,10 @@ for t in time:
         #theta = np.arctan(next_vy/next_vx)
     else:
         break
+
+print(pot_arr)
+ax.contourf((x_arr, y_arr), pot_arr, 10, cmap='Oranges')
+plt.show()
 
 
 

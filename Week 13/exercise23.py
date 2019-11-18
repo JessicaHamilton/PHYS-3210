@@ -42,10 +42,6 @@ for t in time:
         next_x = next_x + next_vx*h
         next_y = next_y + next_vy*h
         
-        #Potential func
-        poten = (next_x**2*next_y**2)*np.exp(-1*(next_x**2+next_y**2))
-        pot_arr.append(poten)
-        
         
         #append new values
         x_arr.append(next_x)
@@ -53,30 +49,28 @@ for t in time:
         vx_arr.append(next_vx)
         vy_arr.append(next_vy)
         
+        
     else:
         break
 
-#print(pot_arr)
-#ax.contourf((x_arr, y_arr), pot_arr, 10, cmap='Oranges')
-#plt.show()
+#Calculate potential function and values
+#Potential func
+x_values = np.arange(-4,4.01,0.01)
+y_values = np.arange(-4,4.01,0.01)
+x_v, y_v = np.meshgrid(x_values,y_values)
+def potential(x,y):
+    return (x**2*y**2)*np.exp(-1*(x**2+y**2))
+
+z_v = potential(x_v,y_v)
+#plot function
+fig, ax = plt.subplots(1, 1)
+ax.contourf(x_v, y_v, z_v, 10, cmap='Oranges')
 
 
 
 
-"""
-plt.plot(time, x_arr)
-plt.title('Position-X vs Time')
-plt.show()
-plt.plot(time, y_arr)
-plt.title('Position-Y vs Time')
-plt.show()
-plt.plot(time, vx_arr)
-plt.title('Velocity-X vs. Time')
-plt.show()
-plt.plot(time, vy_arr)
-plt.title('Velocity-Y vs. Time')
-plt.show()
-"""
+
+
 plt.plot(x_arr,y_arr)
 plt.title('Position-Y vs Position-X')
 plt.show()

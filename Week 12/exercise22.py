@@ -13,14 +13,14 @@ import matplotlib.pyplot as plt
 
     
 #define variables
-E = -1.0e-3
-g = 0.0483
-kappa_2 = g*abs(E)
-kappa = np.sqrt(kappa_2)
-a = 2
-x_match = 1
-dx = 0.001
-V_o = -83.0 
+E = -10 # Must be negative
+g = 0.0483 # value provided in book
+kappa_2 = -g*E # overall positive
+kappa = np.sqrt(kappa_2) #overall positive
+a = 2. #Boundry of well
+x_match = 1. #Matching point
+dx = 0.001 #step- size
+V_o = -83.0 # value provided in book
 
 #initialize arrays
 dp_array1 = []
@@ -31,55 +31,60 @@ dE_arr1 = []
 dE_arr2 = []
 
 #define functions to use
-def psi(x):
-    return np.exp(-kappa*abs(x))
-def d_psi(x):
+def psi(x): # potential function where exp is overall neg
+    return np.exp(-(np.sign(x))*kappa*x)
+def d_psi(x): #deriv of potential function exp is overall neg and kappa is neg 
     return -(np.sign(x))*kappa*np.exp(-kappa*abs(x))
-def d_2psi(x):
+def d_2psi(x): #not used
     return kappa**2*np.exp(-kappa*abs(x))
-
-def d_2psi_in(x,V):
+def d_2psi_in(x,V): #sec deriv of potential function where V is defined by sign (x) and kappa**2 is overall neg * psi function 
     return (V*g + kappa_2)*psi(x)
 
 
-#create arrays and variables
+#create arrays and initial variables using boundary conditions 
 x_array1 = np.arange(-5,x_match, dx)
 x_array2 = np.arange(5, x_match, -dx)
-p1 = np.exp(-kappa*x_array1[0])
-p2 = np.exp(-kappa*x_array2[-1])
-dp1 = -kappa*np.exp(-kappa*x_array1[0])
-dp2 = -kappa*np.exp(-kappa*x_array2[-1])
+p1 = psi(x_array1[0])
+dp1 = d_psi(x_array1[0])
+
 
 #Interate over functions
+#set initial variables for LEFT direction/ x_array1
 dp = dp1
 p = p1
+x_prior = x_array1[0]
+#loop over array 1, should go from left to right until reaches boundary and then goes to elif statement
 for value in x_array1:
     if abs(value) > a:
         V = 0 
-        dp = dp + (d_2psi_in(value,V))*dx
+        dp = dp + d_2psi_in(value,V)*dx
         p = p + dp*dx
-    else:
+    elif abs(value) <= a:
         V = V_o
-        dp = dp + (d_2psi_in(value,V))*dx
+        dp = dp + d_2psi_in(x_prior,V)*dx
         p = p + dp*dx
-    
+    x_prior = x_prior + dx
     dp_array1.append(dp)
     p_array1.append(p)
     deltaE = dp/p 
     dE_arr1.append(deltaE)
-    
-dp = dp2
-p = p2    
+
+#set initial variables for RIGHT direction / x_array2    
+dp = dp1
+p = p1
+x_prior = x_array2[0]
+#loop over array 2, should go right to left until it reaches boundary and switches to elif statement    
 for value in x_array2:
     if abs(value) > a:
         V = 0
         dp = dp + d_2psi_in(value,V)*dx
         p = p + dp*dx
-    else:
+    elif abs(value) <= a:
         V = V_o
-        dp = dp + d_2psi_in(value,V)*dx
+        dp = dp + d_2psi_in(x_prior,V)*dx
         p = p + dp*dx
-    
+        
+    x_prior = value
     dp_array2.append(dp)
     p_array2.append(p)    
     deltaE = dp/p 
@@ -94,28 +99,23 @@ print(dE_total)
 nextE = dE_total/10
 print(nextE)
 
+
 plt.plot(x_array1, p_array1)
 plt.plot(x_array2, p_array2)
 plt.title('Potential vs. Position')
 plt.show()
-"""
+
 plt.plot(x_array1, dp_array1)
 plt.plot(x_array2, dp_array2)
 plt.title('D-potential versus Position')
 plt.show()
 
 
-#Just looking a reference function
-x = np.arange(-20,20,0.1)
 
-yy = []
-for each in x:
-    y = -kappa*82*np.exp((-kappa**2)*abs(each))
-    yy.append(y)
-plt.plot(x,yy)
-plt.title('Regular function for reference')
-plt.show()
-"""
+
+
+
+
 
 def energy(E):
     #define variables

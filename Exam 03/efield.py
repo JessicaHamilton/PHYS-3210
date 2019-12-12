@@ -22,7 +22,7 @@ h = 0.0001
 def y_1(t):
     return (y_2(t))
 def y_2(y1new):
-    return (-1*(omega**2)*y1new - (1/tau*y1new + (g-g_t*(y1new**2))))
+    return (-1*(omega**2)*y1new - (1/tau*y1new - (g-g_t*(y1new**2))))
 
 #set up arrays needed and initialize variables
 t_array = np.arange(0,10,h)
@@ -90,7 +90,7 @@ for a in gtarray:
         
     plt.plot(t_array, y1_array)
     plt.title('Electric field as a function of time')
- 
+    
 plt.show()
     
 for a in gtarray:
